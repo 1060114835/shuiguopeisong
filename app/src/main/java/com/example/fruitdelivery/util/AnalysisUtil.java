@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AnalysisUtil {
+public final class AnalysisUtil {
 
     /**
      * 以我在网上找的这个接口为例,具体写法为:

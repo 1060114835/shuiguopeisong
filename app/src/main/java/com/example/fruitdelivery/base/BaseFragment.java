@@ -25,6 +25,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     //可见一次 在某些情况下onResume会触发，但是onVisible不会触发
     protected boolean mVisibleOnce = false;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
