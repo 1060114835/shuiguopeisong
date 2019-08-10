@@ -19,6 +19,12 @@ android {
 }
 
 dependencies {
+    //RxJava与retrofit适配
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+    //RxJava的安卓依赖包
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //RxJava适配json格式解析
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
