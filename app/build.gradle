@@ -19,6 +19,12 @@ android {
 }
 
 dependencies {
+
+    //Material Design
+    implementation 'com.android.support:design:28.0.0'
+    //圆形图片
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
     //RxJava与retrofit适配
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
     //RxJava的安卓依赖包

@@ -23,5 +23,6 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
     }
 }

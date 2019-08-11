@@ -1,7 +1,10 @@
 package com.example.fruitdelivery.modules.home.self;
 
-public class Test {
+import android.support.v4.app.Fragment;
+
+public class Test extends Fragment {
     /*
       占位 我的碎片
      */
+
 }
