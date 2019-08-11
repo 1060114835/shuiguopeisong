@@ -48,6 +48,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         noOrder = super.mView.findViewById(R.id.no_order_bool);
 
 
+
         //假如没有获取到数据
         boolData = 0;
         new BoolDataBack(0,noOrder).showStub();
