@@ -4,10 +4,4 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBaseBackground">#fefefe</color>
-
-    <!--我的界面主题所用颜色-->
-    <color name="myThemeColorLight">#ffae29</color>
-    <color name="myThemeColor">#ffae29</color>
-    <color name="myThemeColorBackground">#4fc3f7</color>
-
 </resources>

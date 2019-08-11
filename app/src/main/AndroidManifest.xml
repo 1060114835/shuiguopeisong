@@ -21,8 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".modules.home.shell.ShellActivity" />
+        <activity android:name=".modules.home.shell.ShellActivity" />
     </application>
 
 </manifest>
