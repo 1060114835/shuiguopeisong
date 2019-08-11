@@ -12,25 +12,25 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:src="@drawable/fukuan"/>
+        android:src="@drawable/my_fukuan"/>
     <ImageView
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:src="@drawable/fahuo"/>
+        android:src="@drawable/my_fahuo"/>
     <ImageView
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:src="@drawable/shouhuo"/>
+        android:src="@drawable/my_shouhuo"/>
     <ImageView
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:src="@drawable/pingjia"/>
+        android:src="@drawable/my_pingjia"/>
     <ImageView
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:src="@drawable/tuikuan"/>
+        android:src="@drawable/my_tuikuan"/>
 </LinearLayout>

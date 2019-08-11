@@ -14,21 +14,21 @@
         android:layout_height="50dp"
         android:layout_weight="1"
         android:layout_marginLeft="20dp"
-        android:src="@drawable/dizhi" />
+        android:src="@drawable/my_dizhi" />
 
     <!--骑手信息-->
     <ImageView
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:src="@drawable/qishou"/>
+        android:src="@drawable/my_qishou"/>
 
     <!--红包卡券-->
     <ImageView
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:src="@drawable/hongbao"/>
+        android:src="@drawable/my_hongbao"/>
 
     <!--联系商家-->
     <ImageView
@@ -36,5 +36,5 @@
         android:layout_height="50dp"
         android:layout_weight="1"
         android:layout_marginRight="20dp"
-        android:src="@drawable/lianxi"/>
+        android:src="@drawable/my_lianxi"/>
 </LinearLayout>

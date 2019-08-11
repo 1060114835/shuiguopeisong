@@ -1,15 +1,11 @@
 package com.example.fruitdelivery.modules.home.self;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.fruitdelivery.R;
-import com.example.fruitdelivery.base.BaseActivityWithToolbar;
 import com.example.fruitdelivery.base.BaseFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,6 +45,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         myHead = super.mView.findViewById(R.id.my_head);
         myOrder = super.mView.findViewById(R.id.my_order);
         noOrder = super.mView.findViewById(R.id.no_order_bool);
+
 
         //假如没有获取到数据
         boolData = 0;
