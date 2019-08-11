@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +34,15 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+        AllItemBean itemBean = mList.get(i);
+        myViewHolder.tvPrice.setText(itemBean.Price);
+        myViewHolder.tvTotalPrice.setText(itemBean.totalPrice);
+        myViewHolder.tvSaleVolume.setText(itemBean.saleVolume);
+        myViewHolder.tvFreight.setText(itemBean.freight);
+        myViewHolder.tvClassFruit.setText(itemBean.classFruit);
+        myViewHolder.tvStore.setText(itemBean.store);
+        myViewHolder.tvUnit.setText(itemBean.unit);
+
 
     }
 
@@ -42,28 +52,37 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
+        Button btCancel;
+        Button btPay;
         TextView tvStore;
         TextView tvUnit;
         TextView tvClassFruit;
         TextView tvFreight;
-        TextView tvStartFreight;
         TextView tvSaleVolume;
         TextView tvPrice;
         TextView tvTotalPrice;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            btPay = itemView.findViewById(R.id.bt_order_item_pay);
+            btCancel = itemView.findViewById(R.id.bt_order_item_cancel);
+            tvStore = itemView.findViewById(R.id.tv_order_item_store);
+            tvUnit = itemView.findViewById(R.id.tv_order_unit);
+            tvClassFruit = itemView.findViewById(R.id.tv_order_item_classFruit);
+            tvFreight = itemView.findViewById(R.id.tv_order_item_freight);
+            tvSaleVolume = itemView.findViewById(R.id.tv_order_item_sellNumber);
+            tvPrice = itemView.findViewById(R.id.tv_order_item_price);
+            tvTotalPrice = itemView.findViewById(R.id.tv_order_item_allPrice);
         }
     }
-    class AllItemBean {
+    static class AllItemBean {
         public AllItemBean(String store, String unit, String classFruit,
-                           String freight, String startFreight, String saleVolume,
+                           String freight, String saleVolume,
                            String price, String number, String totalPrice) {
             this.store = store;
             this.unit = unit;
             this.classFruit = classFruit;
             this.freight = freight;
-            this.startFreight = startFreight;
             this.saleVolume = saleVolume;
             Price = price;
             this.number = number;
@@ -74,7 +93,6 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
         String unit;//左边的单价
         String classFruit;//水果种类
         String freight;//运费
-        String startFreight;//起送费
         String saleVolume;//销量
         String Price;//右边的单价
         String number;//数量

@@ -7,5 +7,9 @@
     tools:context=".debug.DebugActivity"
     android:id="@+id/ll_debug"
     android:orientation="vertical">
+    <fragment
+        android:name="com.example.fruitdelivery.modules.home.order.OrderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
