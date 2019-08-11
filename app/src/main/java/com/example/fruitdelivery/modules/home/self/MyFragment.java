@@ -12,6 +12,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClickListener {
 
+
     //boolData为判断参数返回的标志；
     private static int boolData;
 

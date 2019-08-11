@@ -1,9 +1,8 @@
 package com.example.fruitdelivery.modules.home.self;
 
 import com.example.fruitdelivery.base.BaseModel;
-import com.example.fruitdelivery.util.AnalysisUtil;
+import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
 
-public class MyModel extends BaseModel {
-
+class MyModel extends BaseModel<JsonRootBean> {
 
 }

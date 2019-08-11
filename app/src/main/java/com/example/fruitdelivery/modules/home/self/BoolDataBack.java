@@ -3,7 +3,7 @@ package com.example.fruitdelivery.modules.home.self;
 import android.view.ViewStub;
 
 public class BoolDataBack {
-    //NO_ORDER代表未返回参数，GET_ORDER代表接收到参数
+    //NO_ORDER代表未接收到参数，GET_ORDER代表接收到参数
     private static int NO_ORDER = 0;
     private static int GET_ORDER = 1;
 
