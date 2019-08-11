@@ -7,10 +7,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
+import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClickListener {
+/**
+ * The type My fragment.
+ */
+public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClickListener,ISelfView {
 
 
     //boolData为判断参数返回的标志；
@@ -49,7 +53,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
 
 
 
-        //假如没有获取到数据
+        //假如没有获取到订单数据
         boolData = 0;
         new BoolDataBack(0,noOrder).showStub();
 
@@ -62,10 +66,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         myOrder.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.my_order:
+
+                //跳转至订单页
                 Toast.makeText(getContext(),"跳转至订单页",Toast.LENGTH_SHORT).show();
                 break;
 
@@ -74,4 +81,10 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         }
     }
 
+
+//    设置数据
+    @Override
+    public void setMyData(JsonRootBean jsonRootBean) {
+        //具体关于头像、电话、昵称的逻辑
+    }
 }

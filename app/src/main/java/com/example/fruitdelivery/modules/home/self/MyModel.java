@@ -4,14 +4,31 @@ import com.example.fruitdelivery.base.BaseModel;
 import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
 import com.example.fruitdelivery.util.AnalysisUtil;
 
+/**
+ * The type My model.
+ */
 class MyModel extends BaseModel<JsonRootBean> {
 
-        CallBack mCallBack;
-        public MyModel(CallBack callBack){
+    /**
+     * The M call back.
+     */
+    CallBack mCallBack;
+
+    /**
+     * Instantiates a new My model.
+     *
+     * @param callBack the call back
+     */
+    public MyModel(CallBack callBack){
             this.mCallBack = callBack;
         }
 
-        public void NetDataStart(){
+    /**
+     * 网络请求
+     *
+     * Json测试数据
+     */
+    public void NetDataStart(){
             AnalysisUtil.getDefault().getArticleCall(new AnalysisUtil.ArticleCallBack() {
                 @Override
                 public void onSuccess(JsonRootBean jsonRootBean) {
@@ -20,7 +37,15 @@ class MyModel extends BaseModel<JsonRootBean> {
             });
         }
 
-        interface CallBack{
-            void setJson(JsonRootBean json);
+    /**
+     *回调接口
+     */
+    interface CallBack{
+        /**
+         * Sets json.回调方法
+         *
+         * @param json the json
+         */
+        void setJson(JsonRootBean json);
         }
 }
