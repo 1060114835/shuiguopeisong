@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">FruitDelivery</string>
+    <string name="水果配送">水果配送</string>
+    <string name="骑手页面">骑手页面</string>
+    <string name="我的地址">我的地址</string>
+    <string name="待收货">待收货</string>
+    <string name="热销榜">热销榜</string>
+    <string name="详情">详情</string>
+    <string name="爱上鲜旗舰店">爱上鲜旗舰店</string>
+    <string name="_4_7">4.7</string>
+    <string name="月售698">月售698</string>
 </resources>
