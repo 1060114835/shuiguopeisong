@@ -30,11 +30,11 @@ public final class AnalysisUtil {
      * 4.每一个Api会写一个对应的方法，需要数据时调用对应的方法
      * 5.每个方法会写注释表明这个方法为哪个模块需要的，就像下面的首页文章模块
      * 6.在M层调用方法获取到数据后可以自己使用接口回调或者返回值的方式将数据返回给P层
-
      */
 
     private static final String TAG = "## Retrofit网络请求 ##";
     private static final String BASE_URL = "https://www.wanandroid.com/";
+    private static final String BASE_URL_1 = "https://gank.io/api/";
 
     public interface ArticleCallBack {
         void onSuccess(JsonRootBean jsonRootBean);
@@ -47,7 +47,7 @@ public final class AnalysisUtil {
 
     private AnalysisUtil() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BASE_URL_1)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -71,6 +71,33 @@ public final class AnalysisUtil {
      */
 
     public void getArticleCall(final ArticleCallBack callBack) {
+        apis.getPictureCall()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JsonRootBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(JsonRootBean jsonRootBean) {
+                        callBack.onSuccess(jsonRootBean);
+                        Log.d(TAG, "onNext: 数据请求成功");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: 请求数据失败"+e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: 请求数据完成"+System.currentTimeMillis());
+                    }
+                });
+    }
+    public void getPictureCall(final ArticleCallBack callBack) {
         apis.getArticleCall()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

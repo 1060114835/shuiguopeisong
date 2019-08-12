@@ -1,10 +1,16 @@
 package com.example.fruitdelivery.modules.home.order.Fragments.allitem;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -16,70 +22,47 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.base.BaseFragment;
+import com.example.fruitdelivery.base.BasePresenter;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllItemFragment extends Fragment implements AllItemRecyclerViewAdapter.OnClickListener {
+public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
+        AllItemRecyclerViewAdapter.OnClickListener, AllItemView {
     private RecyclerView mRecyclerView;
-    private View mRootView;
     private PopupWindow popupWindow;
     private View popupView;
     private TranslateAnimation animation;
+    private Drawable drawable;
     private List<AllItemRecyclerViewAdapter.AllItemBean> mList = new ArrayList<>();
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_order_allitem, container, false);
-        initData();
-        initView();
-        return mRootView;
-
+    protected int getContentLayoutId() {
+        return R.layout.fragment_order_allitem;
     }
 
-    private void initView() {
-        mRecyclerView = mRootView.findViewById(R.id.rv_order_allItem);
-        /*
-        不知道能不能通过这种方式得到context
-         */
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(mRootView.getContext());
+    @Override
+    protected AllItemPresenter createPresenter() {
+        return new AllItemPresenter();
+    }
+
+    @Override
+    protected void initView() {
+        mPresenter.initData(mList);
+        mRecyclerView = mView.findViewById(R.id.rv_order_allItem);
+        drawable = new BitmapDrawable(mPresenter.getBitmap());
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(mView.getContext());
         AllItemRecyclerViewAdapter adapter = new AllItemRecyclerViewAdapter(mList);
         adapter.setClickListener(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(adapter);
     }
 
-    private void initData() {
-        AllItemRecyclerViewAdapter.AllItemBean allItemBean = new AllItemRecyclerViewAdapter
-                .AllItemBean("喜悦水果店", "七元一斤", "苹果"
-                , "起送￥51|配送￥18", "233", "￥19", "x12", "合计：￥250");
-        AllItemRecyclerViewAdapter.AllItemBean allItemBean1 = new AllItemRecyclerViewAdapter
-                .AllItemBean("历时达水果店", "七元二斤", "栗子"
-                , "起送￥52|配送￥8", "553", "￥23", "x13", "合计：￥123");
-        AllItemRecyclerViewAdapter.AllItemBean allItemBean2 = new AllItemRecyclerViewAdapter
-                .AllItemBean("再擦水果店", "三元一斤", "香蕉"
-                , "起送￥51|配送￥82", "166", "￥13", "x1", "合计：￥423");
-        AllItemRecyclerViewAdapter.AllItemBean allItemBean3 = new AllItemRecyclerViewAdapter
-                .AllItemBean("无数次水果店", "五元一斤", "猕猴桃"
-                , "起送￥10|配送￥12", "2339", "￥42", "x2", "合计：￥131");
-        AllItemRecyclerViewAdapter.AllItemBean allItemBean4 = new AllItemRecyclerViewAdapter
-                .AllItemBean("偶是水果店", "十元一斤", "桃"
-                , "起送￥12|配送￥10", "2883", "￥8", "x3", "合计：￥944");
-        AllItemRecyclerViewAdapter.AllItemBean allItemBean5 = new AllItemRecyclerViewAdapter
-                .AllItemBean("希望水果店", "四二元一斤", "苹"
-                , "起送￥12|配送￥8", "2313", "￥9", "x7", "合计：￥524");
-
-        for (int i = 0; i < 3; i++) {
-            mList.add(allItemBean);
-            mList.add(allItemBean1);
-            mList.add(allItemBean2);
-            mList.add(allItemBean3);
-            mList.add(allItemBean4);
-            mList.add(allItemBean5);
-        }
-    }
 
     @Override
     public void onClickStore(int position) {
@@ -93,8 +76,7 @@ public class AllItemFragment extends Fragment implements AllItemRecyclerViewAdap
 
     @Override
     public void onClickPay(int position) {
-        changeIcon();
-        lightOff();
+        popupPayPage();
     }
 
     @Override
@@ -105,7 +87,8 @@ public class AllItemFragment extends Fragment implements AllItemRecyclerViewAdap
     /**
      * 设置手机屏幕亮度变暗
      */
-    private void lightOff() {
+    @Override
+    public void lightOff() {
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         lp.alpha = 0.3f;
         getActivity().getWindow().setAttributes(lp);
@@ -114,15 +97,40 @@ public class AllItemFragment extends Fragment implements AllItemRecyclerViewAdap
     /**
      * 设置手机屏幕亮度显示正常
      */
-    private void lightOn() {
+    @Override
+    public void lightOn() {
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         lp.alpha = 1f;
         getActivity().getWindow().setAttributes(lp);
     }
 
-    private void changeIcon() {
+    @Override
+    public void popupPayPage() {
         if (popupWindow == null) {
             popupView = View.inflate(getContext(), R.layout.pay_order, null);
+            String[] prices = {"1500", "200", "3000"};
+            String[] weights = {"1500g", "789g", "900g"};
+            ArrayList<String> priceData = new ArrayList<>();
+            priceData.add("1500元");
+            priceData.add("200元");
+            priceData.add("3000元");
+            ArrayList<String> weightData = new ArrayList<>();
+            weightData.add("1500g");
+            weightData.add("789g");
+            weightData.add("900g");
+            RecyclerView weightRecyclerView = popupView.findViewById(R.id.ly_order_pay_addWeightText);
+            RecyclerView priceRecyclerView = popupView.findViewById(R.id.ly_order_pay_addPriceText);
+            LinearLayoutManager layoutManager1 = new LinearLayoutManager(popupView.getContext());
+            layoutManager1.setOrientation(LinearLayoutManager.HORIZONTAL);
+            LinearLayoutManager layoutManager2 = new LinearLayoutManager(popupView.getContext());
+            layoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
+            weightRecyclerView.setLayoutManager(layoutManager1);
+            priceRecyclerView.setLayoutManager(layoutManager2);
+            weightRecyclerView.setAdapter(new TextRecyclerViewAdapter(weightData));
+            priceRecyclerView.setAdapter(new TextRecyclerViewAdapter(priceData));
+
+//            addPrice(prices);
+//            addWeight(weights);
             popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.WRAP_CONTENT);
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -131,18 +139,56 @@ public class AllItemFragment extends Fragment implements AllItemRecyclerViewAdap
                     lightOn();
                 }
             });
-            popupWindow.setBackgroundDrawable(new BitmapDrawable());
+            popupWindow.setBackgroundDrawable(drawable);
             popupWindow.setFocusable(true);
             popupWindow.setOutsideTouchable(true);
-            animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0,
-                    Animation.RELATIVE_TO_PARENT, 1, Animation.RELATIVE_TO_PARENT, 0);
-            animation.setInterpolator(new AccelerateInterpolator());
-            animation.setDuration(200);
-           // popupWindow.showAtLocation(getActivity().findViewById(R.id.order_test), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-            popupView.startAnimation(animation);
+//            animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0,
+//                    Animation.RELATIVE_TO_PARENT, 1, Animation.RELATIVE_TO_PARENT, 0);
+//            animation.setInterpolator(new AccelerateInterpolator());
+//            animation.setDuration(200);
         }
+        popupWindow.showAtLocation(mView.findViewById(R.id.rv_order_allItem), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//        popupView.startAnimation(animation);
+        lightOff();
     }
 
+
+    class TextRecyclerViewAdapter extends RecyclerView.Adapter<TextRecyclerViewAdapter.ViewHolder> {
+        private List<String> mData;
+
+        public TextRecyclerViewAdapter(List<String> mData) {
+            this.mData = mData;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View v = LayoutInflater
+                    .from(viewGroup.getContext())
+                    .inflate(R.layout.fragment_textview_order, viewGroup,false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+            viewHolder.textView.setText(mData.get(i));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            TextView textView;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                textView = itemView.findViewById(R.id.tv_order_text);
+            }
+        }
+
+    }
 }
 
 

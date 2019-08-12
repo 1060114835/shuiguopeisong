@@ -9,8 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="#ffffff"
-        app:tabPaddingStart="20dp"
-        app:tabPaddingEnd="20dp"
         app:tabTextColor="#000000"
         app:tabIndicatorColor="#FFBF37"
         app:tabIndicatorHeight="3dp"

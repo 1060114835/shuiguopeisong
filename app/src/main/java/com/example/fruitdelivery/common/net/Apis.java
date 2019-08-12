@@ -11,9 +11,13 @@ import retrofit2.http.GET;
  */
 public interface Apis {
     String articleUrl = "article/list/1/json";
+    String pictureUrl = "data/%E7%A6%8F%E5%88%A9/10/1";
     /**
      * 这个是网上的Api，这里只是拿来试验一下
      */
     @GET(articleUrl)
     Observable<JsonRootBean> getArticleCall();
+
+    @GET(pictureUrl)
+    Observable<JsonRootBean> getPictureCall();
 }

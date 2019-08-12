@@ -3,10 +3,13 @@ package com.example.fruitdelivery.modules.home.order.main_fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
+import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
 import com.example.fruitdelivery.modules.home.order.Fragments.allitem.AllItemFragment;
+import com.example.fruitdelivery.util.AnalysisUtil;
 
 import java.util.ArrayList;
 import java.util.List;
