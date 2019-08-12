@@ -1,27 +1,33 @@
-package com.example.fruitdelivery.modules.home.order.Fragments;
+package com.example.fruitdelivery.modules.home.order.Fragments.allitem;
 
-import android.content.Context;
-import android.content.IntentFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.PopupWindow;
 import com.example.fruitdelivery.R;
-import com.example.fruitdelivery.base.BaseFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllItemFragment extends Fragment {
+public class AllItemFragment extends Fragment implements AllItemRecyclerViewAdapter.OnClickListener {
     private RecyclerView mRecyclerView;
     private View mRootView;
+    private PopupWindow popupWindow;
+    private View popupView;
+    private TranslateAnimation animation;
     private List<AllItemRecyclerViewAdapter.AllItemBean> mList = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -30,6 +36,7 @@ public class AllItemFragment extends Fragment {
         initData();
         initView();
         return mRootView;
+
     }
 
     private void initView() {
@@ -39,6 +46,7 @@ public class AllItemFragment extends Fragment {
          */
         RecyclerView.LayoutManager manager = new LinearLayoutManager(mRootView.getContext());
         AllItemRecyclerViewAdapter adapter = new AllItemRecyclerViewAdapter(mList);
+        adapter.setClickListener(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(adapter);
     }
@@ -72,5 +80,69 @@ public class AllItemFragment extends Fragment {
             mList.add(allItemBean5);
         }
     }
+
+    @Override
+    public void onClickStore(int position) {
+
+    }
+
+    @Override
+    public void onClickThing(int position) {
+
+    }
+
+    @Override
+    public void onClickPay(int position) {
+        changeIcon();
+        lightOff();
+    }
+
+    @Override
+    public void onClickCancel(int position) {
+
+    }
+
+    /**
+     * 设置手机屏幕亮度变暗
+     */
+    private void lightOff() {
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.3f;
+        getActivity().getWindow().setAttributes(lp);
+    }
+
+    /**
+     * 设置手机屏幕亮度显示正常
+     */
+    private void lightOn() {
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 1f;
+        getActivity().getWindow().setAttributes(lp);
+    }
+
+    private void changeIcon() {
+        if (popupWindow == null) {
+            popupView = View.inflate(getContext(), R.layout.pay_order, null);
+            popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT);
+            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    lightOn();
+                }
+            });
+            popupWindow.setBackgroundDrawable(new BitmapDrawable());
+            popupWindow.setFocusable(true);
+            popupWindow.setOutsideTouchable(true);
+            animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0,
+                    Animation.RELATIVE_TO_PARENT, 1, Animation.RELATIVE_TO_PARENT, 0);
+            animation.setInterpolator(new AccelerateInterpolator());
+            animation.setDuration(200);
+           // popupWindow.showAtLocation(getActivity().findViewById(R.id.order_test), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+            popupView.startAnimation(animation);
+        }
+    }
+
 }
+
 

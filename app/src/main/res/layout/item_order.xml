@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="15dp"
     android:layout_marginHorizontal="15dp"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    tools:targetApi="o">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
         android:padding="15dp">
 
         <LinearLayout
+            android:id="@+id/ly_order_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -45,6 +47,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_click_thing"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

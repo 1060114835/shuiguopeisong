@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order;
+package com.example.fruitdelivery.modules.home.order.main_fragment;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -6,12 +6,12 @@ import android.support.v4.view.ViewPager;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
-import com.example.fruitdelivery.modules.home.order.Fragments.AllItemFragment;
+import com.example.fruitdelivery.modules.home.order.Fragments.allitem.AllItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderFragment extends BaseFragment<OrderPresenter> implements OrderView{
+public class OrderFragment extends BaseFragment<OrderPresenter> implements OrderView {
     private List<Fragment> mFragmentData = new ArrayList<>();
     private List<String> mTitleData = new ArrayList<>();
     private TabLayout tabLayout;

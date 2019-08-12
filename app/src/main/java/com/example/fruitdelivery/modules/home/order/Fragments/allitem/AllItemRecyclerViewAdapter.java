@@ -1,39 +1,52 @@
-package com.example.fruitdelivery.modules.home.order.Fragments;
+package com.example.fruitdelivery.modules.home.order.Fragments.allitem;
 
-import android.content.IntentFilter;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.fruitdelivery.R;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecyclerViewAdapter.MyViewHolder> {
-    List<AllItemBean> mList ;
-    public AllItemRecyclerViewAdapter(List<AllItemBean> listView) {
+    private static final String TAG = "chen";
+
+    public interface OnClickListener {
+        void onClickStore(int position);
+        void onClickThing(int position);
+        void onClickPay(int position);
+        void onClickCancel(int position);
+    }
+    private OnClickListener clickListener;
+    private Context mContext;
+    private List<AllItemBean> mList ;
+    AllItemRecyclerViewAdapter(List<AllItemBean> listView) {
         super();
         mList = listView;
     }
 
+    void setClickListener(OnClickListener onClickListener) {
+        this.clickListener = onClickListener;
+    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        mContext = viewGroup.getContext();
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order,viewGroup,false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+        final int position = myViewHolder.getAdapterPosition();
         AllItemBean itemBean = mList.get(i);
         myViewHolder.tvPrice.setText(itemBean.Price);
         myViewHolder.tvTotalPrice.setText(itemBean.totalPrice);
@@ -42,8 +55,42 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
         myViewHolder.tvClassFruit.setText(itemBean.classFruit);
         myViewHolder.tvStore.setText(itemBean.store);
         myViewHolder.tvUnit.setText(itemBean.unit);
-
-
+        /*
+        跳转商店详情页
+         */
+        myViewHolder.lyClickStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onClickStore(position);
+            }
+        });
+        /*
+        跳转商品详情页
+         */
+        myViewHolder.rlClickThing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onClickThing(position);
+            }
+        });
+        /*
+        弹出底部弹窗，支付
+         */
+        myViewHolder.btPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onClickPay(position);
+            }
+        });
+        /*
+        删除订单
+         */
+        myViewHolder.btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onClickCancel(position);
+            }
+        });
     }
 
     @Override
@@ -52,6 +99,8 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout lyClickStore;
+        RelativeLayout rlClickThing;
         Button btCancel;
         Button btPay;
         TextView tvStore;
@@ -64,6 +113,9 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            lyClickStore = itemView.findViewById(R.id.ly_order_pay);
+            Log.d(TAG, "MyViewHolder: "+lyClickStore);
+            rlClickThing = itemView.findViewById(R.id.rl_click_thing);
             btPay = itemView.findViewById(R.id.bt_order_item_pay);
             btCancel = itemView.findViewById(R.id.bt_order_item_cancel);
             tvStore = itemView.findViewById(R.id.tv_order_item_store);
@@ -73,6 +125,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
             tvSaleVolume = itemView.findViewById(R.id.tv_order_item_sellNumber);
             tvPrice = itemView.findViewById(R.id.tv_order_item_price);
             tvTotalPrice = itemView.findViewById(R.id.tv_order_item_allPrice);
+
         }
     }
     static class AllItemBean {

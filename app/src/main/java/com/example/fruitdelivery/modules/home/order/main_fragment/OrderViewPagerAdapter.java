@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order;
+package com.example.fruitdelivery.modules.home.order.main_fragment;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
