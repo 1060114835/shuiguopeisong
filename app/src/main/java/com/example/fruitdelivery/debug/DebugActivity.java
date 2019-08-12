@@ -45,7 +45,6 @@ public class DebugActivity extends AppCompatActivity {
         params.rightMargin = margin;
         params.topMargin = margin;
         button.setLayoutParams(params);
-
         button.setText(text);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

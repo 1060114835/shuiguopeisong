@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -172,6 +173,12 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             viewHolder.textView.setText(mData.get(i));
+            viewHolder.textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
 
         @Override
