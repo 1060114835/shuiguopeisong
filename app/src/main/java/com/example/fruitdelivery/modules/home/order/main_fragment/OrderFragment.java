@@ -42,9 +42,6 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements Order
             mFragmentData.add(new AllItemFragment());
             tabLayout.addTab(tabLayout.newTab().setText(mTitleData.get(i)));
         }
-        /*
-        不确定能否得到顶层的activity
-         */
         mVpDisplay.setAdapter(new OrderViewPagerAdapter(getActivity().getSupportFragmentManager(),mFragmentData,mTitleData));
         tabLayout.setupWithViewPager(mVpDisplay);
     }
