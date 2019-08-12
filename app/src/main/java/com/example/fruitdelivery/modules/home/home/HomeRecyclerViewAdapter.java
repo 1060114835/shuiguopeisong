@@ -1,9 +1,9 @@
 package com.example.fruitdelivery.modules.home.home;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import java.util.List;
 
@@ -14,11 +14,25 @@ import java.util.List;
  */
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private List<String> urlList;
+    private Context context;
 
+    private static final int TYPE_BANNER = 0;
+    private static final int TYPE_FUNCTION = 1;
+    private static final int TYPE_SELLERS = 2;
+    private static final int TYPE_FRUIT = 3;
+    private static final int TYPE_FOOTER = 4;
+
+    public HomeRecyclerViewAdapter(List<String> urlList, Context context) {
+        this.urlList = urlList;
+        this.context = context;
+    }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
+
         return null;
     }
 
@@ -29,11 +43,38 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        return 0;
+        return urlList.size() + 4;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+        if (position == 0) {
+            return TYPE_BANNER;
+        }else if (position == 1) {
+            return TYPE_FUNCTION;
+        }else if (position == 2) {
+            return TYPE_SELLERS;
+        }else if (position + 1 == getItemCount() ) {
+            return TYPE_FOOTER;
+        }else {
+            return TYPE_FRUIT;
+        }
     }
+
+    class FunctionViewHolder {
+
+    }
+
+    class SellersViewHolder {
+
+    }
+
+    class FruitViewHolder {
+
+    }
+
+    class FooterViewHolder {
+
+    }
+
 }
