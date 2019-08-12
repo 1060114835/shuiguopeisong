@@ -85,6 +85,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
 //    设置数据
     @Override
     public void setMyData(JsonRootBean jsonRootBean) {
-        //具体关于头像、电话、昵称的逻辑
+        //具体关于设置头像、电话、昵称的逻辑
     }
 }

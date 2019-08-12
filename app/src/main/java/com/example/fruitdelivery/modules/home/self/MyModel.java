@@ -15,20 +15,15 @@ class MyModel extends BaseModel<JsonRootBean> {
     CallBack mCallBack;
 
     /**
-     * Instantiates a new My model.
-     *
-     * @param callBack the call back
-     */
-    public MyModel(CallBack callBack){
-            this.mCallBack = callBack;
-        }
-
-    /**
      * 网络请求
      *
      * Json测试数据
+     *
+     * @param callBack the call back
      */
-    public void NetDataStart(){
+
+    public MyModel(CallBack callBack){
+            this.mCallBack = callBack;
             AnalysisUtil.getDefault().getArticleCall(new AnalysisUtil.ArticleCallBack() {
                 @Override
                 public void onSuccess(JsonRootBean jsonRootBean) {
