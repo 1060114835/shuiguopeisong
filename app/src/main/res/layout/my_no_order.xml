@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".modules.home.shell.ShellActivity">
+    android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/my_fragment"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.fruitdelivery.modules.home.self.MyFragment"/>
+        android:layout_height="450dp"
+        android:src="@drawable/no_order"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
