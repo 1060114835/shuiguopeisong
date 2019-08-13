@@ -28,7 +28,7 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
             public void onClick(View v) {
                 int position = viewHolder.getAdapterPosition();
                 int uri = uris.get(position);
-                Toast.makeText(v.getContext(),"wadsd" + position,Toast.LENGTH_SHORT).show();
+
             }
         });
 

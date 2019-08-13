@@ -77,6 +77,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
 
     }
 
+    /**
+     * 初始化图片Uri
+     */
     public void initUris(){
         uriList.add(R.drawable.my_fukuan);
         uriList.add(R.drawable.my_fahuo);
