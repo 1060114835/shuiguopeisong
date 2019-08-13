@@ -14,10 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+<<<<<<< HEAD
         <activity android:name=".modules.home.self.MyDebugActivity"></activity>
         <activity
             android:name=".modules.account.register.Test"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+=======
+        <activity android:name=".modules.account.register.RegisterActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+>>>>>>> origin/master
         <activity android:name=".debug.DebugActivity">
 
         </activity>
