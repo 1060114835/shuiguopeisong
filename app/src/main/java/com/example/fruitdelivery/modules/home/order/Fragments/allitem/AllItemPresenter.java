@@ -17,21 +17,6 @@ class AllItemPresenter extends BasePresenter<AllItemFragment,AllItemModel> {
         return new AllItemModel();
     }
 
-    Bitmap getBitmap() {
-        try {
-            Drawable drawable = mView.getResources().getDrawable(R.drawable.order_white);
-            Canvas canvas = new Canvas();
-            Bitmap bitmap = Bitmap.createBitmap(120, 120, Bitmap.Config.ARGB_8888);
-            canvas.setBitmap(bitmap);
-            drawable.setBounds(0, 0, 120, 120);
-            drawable.draw(canvas);
-
-            return bitmap;
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     void initData(List<AllItemRecyclerViewAdapter.AllItemBean> list) {
         AllItemRecyclerViewAdapter.AllItemBean allItemBean = new AllItemRecyclerViewAdapter
                 .AllItemBean("喜悦水果店", "七元一斤", "苹果"
@@ -62,11 +47,5 @@ class AllItemPresenter extends BasePresenter<AllItemFragment,AllItemModel> {
         }
     }
 
-    void addWeight(int[] weights) {
 
-    }
-
-    void addPrice(int[] prices) {
-
-    }
 }

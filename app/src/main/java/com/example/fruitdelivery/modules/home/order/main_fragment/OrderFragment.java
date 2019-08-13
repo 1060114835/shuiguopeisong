@@ -19,6 +19,7 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements Order
     private List<String> mTitleData = new ArrayList<>();
     private TabLayout tabLayout;
     private ViewPager mVpDisplay;
+
     @Override
     protected int getContentLayoutId() {
         return R.layout.fragment_order;
@@ -31,6 +32,8 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements Order
 
     @Override
     protected void initView() {
+        mFragmentData.clear();
+        mTitleData.clear();
         mVpDisplay = mView.findViewById(R.id.vp_order);
         tabLayout = mView.findViewById(R.id.tl_order_tab);
         mTitleData.add("全部");
@@ -38,11 +41,11 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements Order
         mTitleData.add("待签收");
         mTitleData.add("待评价");
         mTitleData.add("已完成");
-        for (int i = 0;i < 5;i++) {
+        for (int i = 0; i < 5; i++) {
             mFragmentData.add(new AllItemFragment());
             tabLayout.addTab(tabLayout.newTab().setText(mTitleData.get(i)));
         }
-        mVpDisplay.setAdapter(new OrderViewPagerAdapter(getActivity().getSupportFragmentManager(),mFragmentData,mTitleData));
+        mVpDisplay.setAdapter(new OrderViewPagerAdapter(getActivity().getSupportFragmentManager(), mFragmentData, mTitleData));
         tabLayout.setupWithViewPager(mVpDisplay);
     }
 }
