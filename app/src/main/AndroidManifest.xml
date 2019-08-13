@@ -16,14 +16,16 @@
         <activity android:name=".modules.account.register.Test"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".debug.DebugActivity">
+
+        </activity>
+
+        <activity android:name=".modules.home.shell.ShellActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".modules.home.shell.ShellActivity" />
     </application>
 
 </manifest>
