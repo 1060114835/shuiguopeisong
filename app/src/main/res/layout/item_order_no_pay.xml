@@ -15,7 +15,7 @@
         android:padding="15dp">
 
         <LinearLayout
-            android:id="@+id/ly_order_pay"
+            android:id="@+id/ly_order_no_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -28,7 +28,7 @@
                 android:src="@drawable/order_store" />
 
             <TextView
-                android:id="@+id/tv_order_item_store"
+                android:id="@+id/tv_order_item_no_pay_store"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -46,31 +46,31 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_click_thing"
+            android:id="@+id/rl_click_no_pay_thing"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:scaleType="centerCrop"
-                android:id="@+id/iv_order_item_fruit"
+                android:id="@+id/iv_order_item_no_pay_fruit"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/order_fruit" />
 
             <android.support.v7.widget.CardView
-                android:id="@+id/demo1"
+                android:id="@+id/no_pay_demo1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/iv_order_item_fruit"
+                android:layout_toEndOf="@+id/iv_order_item_no_pay_fruit"
                 app:cardCornerRadius="10dp">
 
                 <TextView
-                    android:id="@+id/tv_order_unit"
+                    android:id="@+id/tv_order_no_pay_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
+                    android:paddingHorizontal="10dp"
                     android:background="#FFD35E"
                     android:text="五元一斤"
                     tools:targetApi="o" />
@@ -79,12 +79,13 @@
             <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:background="#FEEF92"
+                android:layout_marginStart="5dp"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/demo1"
+                android:layout_toEndOf="@+id/no_pay_demo1"
                 app:cardCornerRadius="10dp">
 
                 <TextView
-                    android:id="@+id/tv_order_item_classFruit"
+                    android:id="@+id/tv_order_item_no_pay_classFruit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="10dp"
@@ -93,7 +94,7 @@
             </android.support.v7.widget.CardView>
 
             <TextView
-                android:id="@+id/tv_order_item_price"
+                android:id="@+id/tv_order_item_no_pay_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -101,37 +102,37 @@
                 android:textColor="#000000" />
 
             <TextView
-                android:id="@+id/tv_order_item_freight"
+                android:id="@+id/tv_order_item_no_pay_freight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_order_item_price"
+                android:layout_below="@id/tv_order_item_no_pay_price"
                 android:layout_marginVertical="10dp"
-                android:layout_toEndOf="@id/iv_order_item_fruit"
+                android:layout_toEndOf="@id/iv_order_item_no_pay_fruit"
                 android:text="起送￥10|配送￥8"
                 tools:targetApi="o" />
 
             <TextView
-                android:id="@+id/tv_order_item_monthNumber"
+                android:id="@+id/tv_order_item_no_pay_monthNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_order_item_freight"
-                android:layout_toEndOf="@id/iv_order_item_fruit"
+                android:layout_below="@id/tv_order_item_no_pay_freight"
+                android:layout_toEndOf="@id/iv_order_item_no_pay_fruit"
                 android:text="月售" />
 
             <TextView
-                android:id="@+id/tv_order_item_sellNumber"
+                android:id="@+id/tv_order_item_no_pay_sellNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_order_item_freight"
-                android:layout_toEndOf="@id/tv_order_item_monthNumber"
+                android:layout_below="@id/tv_order_item_no_pay_freight"
+                android:layout_toEndOf="@id/tv_order_item_no_pay_monthNumber"
                 android:text="1908"
                 android:textColor="#FD966B" />
 
             <TextView
-                android:id="@+id/tv_order_item_number"
+                android:id="@+id/tv_order_item_no_pay_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_order_item_price"
+                android:layout_below="@id/tv_order_item_no_pay_price"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"
@@ -148,11 +149,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:layout_toStartOf="@+id/tv_order_item_allPrice"
+                android:layout_toStartOf="@+id/tv_order_item_no_pay_allPrice"
                 android:text="共3件商品" />
 
             <TextView
-                android:id="@+id/tv_order_item_allPrice"
+                android:id="@+id/tv_order_item_no_pay_allPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -167,16 +168,16 @@
             android:layout_marginTop="15dp">
 
             <Button
-                android:id="@+id/bt_order_item_cancel"
+                android:id="@+id/bt_order_item_no_pay_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/bt_order_item_pay"
+                android:layout_toStartOf="@id/bt_order_item_no_pay"
                 android:background="@drawable/order_button_style_gray"
                 android:text="取消订单" />
 
             <Button
-                android:id="@+id/bt_order_item_pay"
+                android:id="@+id/bt_order_item_no_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"

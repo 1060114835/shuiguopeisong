@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
+import com.example.fruitdelivery.modules.home.self.MyDebugActivity;
 import com.example.fruitdelivery.modules.home.shell.ShellActivity;
 import com.example.fruitdelivery.util.AnalysisUtil;
 import com.example.fruitdelivery.util.ScreenUtil;
@@ -58,6 +59,7 @@ public class DebugActivity extends AppCompatActivity {
 
     public void addButtons() {
         addButton("到主页", toHomeActivity());
+        addButton("到MyDeBugActivity",toMyDebugActivity());
     }
 
     /**
@@ -68,6 +70,15 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(new Intent(DebugActivity.this, ShellActivity.class));
+            }
+        };
+    }
+
+    public Runnable toMyDebugActivity(){
+        return new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(DebugActivity.this, MyDebugActivity.class));
             }
         };
     }

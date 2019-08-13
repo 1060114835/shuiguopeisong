@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--卡片底栏-->
+<LinearLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="bottom"
+    android:layout_marginBottom="20dp">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_bottom_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

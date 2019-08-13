@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_above="@id/collapsing_toolbar"
+    android:layout_gravity="bottom"
+    android:layout_marginBottom="5dp">
+
+    <!--我的地址-->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/my_dizhi" />
+
+    <!--骑手信息-->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:src="@drawable/my_qishou"/>
+
+    <!--红包卡券-->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:src="@drawable/my_hongbao"/>
+
+    <!--联系商家-->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/my_lianxi"/>
+</LinearLayout>

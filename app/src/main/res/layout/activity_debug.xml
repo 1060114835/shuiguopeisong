@@ -8,9 +8,5 @@
     android:id="@+id/ll_debug"
     android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/order_text"
-        android:name="com.example.fruitdelivery.modules.home.order.main_fragment.OrderFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
 </LinearLayout>
