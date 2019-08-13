@@ -9,24 +9,24 @@
         android:layout_marginVertical="15dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:src="@drawable/my_dizhi"/>
+        android:src="@drawable/dizhi"/>
 
     <LinearLayout
+        android:id="@+id/recycler_kouwei"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <include layout="@layout/my_evaluate_recycler"
-            android:id="@+id/recycler_kouwei"/>
+        <include layout="@layout/my_evaluate_recycler" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/recycler_baozhuang"
         android:layout_marginVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <include layout="@layout/my_evaluate_recycler"
-            android:id="@+id/recycler_baozhuang"/>
+        <include layout="@layout/my_evaluate_recycler" />
 
     </LinearLayout>
 </LinearLayout>

@@ -17,11 +17,12 @@ import java.util.List;
 public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.ViewHolder> {
     private List<Integer> uris;
     private Context mContext;
+    int mBoolXml;
 
     @NonNull
     @Override
     public CardBottomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_card_item,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(mBoolXml,viewGroup,false);
         final ViewHolder viewHolder = new ViewHolder(view);
         viewHolder.bottomItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,16 +48,17 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
     }
 
 
-    public CardBottomAdapter(Context context,List<Integer> uriList){
+    public CardBottomAdapter(Context context,List<Integer> uriList,int boolitem){
         this.uris = uriList;
         this.mContext = context;
+        this.mBoolXml = boolitem;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView bottomItem;
         public ViewHolder(View view){
             super(view);
-            bottomItem = view.findViewById(R.id.bottom_image);
+            bottomItem = view.findViewById(R.id.common_image);
         }
     }
 }

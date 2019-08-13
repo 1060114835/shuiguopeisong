@@ -1,5 +1,6 @@
 package com.example.fruitdelivery.modules.home.self;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,7 +69,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        CardBottomAdapter adapter = new CardBottomAdapter(getContext(),uriList);
+        CardBottomAdapter adapter = new CardBottomAdapter(getContext(),uriList,R.layout.my_card_item);
         recyclerView.setAdapter(adapter);
 
         //假如没有获取到订单数据
@@ -106,8 +107,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
 
                 //活动与碎片的通信
                 //跳转至订单页:1
+
 //                Activity activity = getBActivity();
 //                activity.getViewPager().setCurrentItem(position);
+
+                //跳转至MyDebug
+                startActivity(new Intent(getContext(),MyDebugActivity.class));
+
                 break;
 
             default:
