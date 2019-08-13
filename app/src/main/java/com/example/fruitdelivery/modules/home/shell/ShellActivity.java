@@ -5,21 +5,30 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseActivity;
 import com.example.fruitdelivery.base.BaseActivityWithToolbar;
 import com.example.fruitdelivery.modules.home.home.HomeFragment;
+import com.example.fruitdelivery.modules.home.order.main_fragment.OrderFragment;
+import com.example.fruitdelivery.modules.home.self.MyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 壳活动，应该包含 我的、订单、首页 三个碎片
  */
 public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> implements IShellView {
 
-    private static List<Fragment> fragmentList;
+    private List<Fragment> fragmentList;
+    private List<String> tabTitleList;
+    private List<Integer> tabIconList;
+
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected int getContentLayoutId() {
@@ -34,21 +43,31 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+        viewPager = findViewById(R.id.shell_view_pager);
+        tabLayout = findViewById(R.id.shell_tab_layout);
         fragmentList = new ArrayList<>();
-        HomeFragment homeFragment = new HomeFragment();
+        tabTitleList = new ArrayList<>();
+        tabIconList = new ArrayList<>();
 
-        fragmentList.add(homeFragment);
+        fragmentList.add(new OrderFragment());
+        fragmentList.add(new HomeFragment());
+        fragmentList.add(new MyFragment());
+        tabTitleList.add("首页");
+        tabTitleList.add("订单");
+        tabTitleList.add("我的");
+        tabIconList.add(R.drawable.shell_tab_homepage);
+        tabIconList.add(R.drawable.shell_tab_order);
+        tabIconList.add(R.drawable.shell_tab_mine);
 
-        ViewPager viewPager = findViewById(R.id.shell_view_pager);
-        ShellAdapter shellAdapter = new ShellAdapter(getSupportFragmentManager(),fragmentList);
-        viewPager.setAdapter(shellAdapter);
-
-        TabLayout tabLayout = findViewById(R.id.shell_tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("首页").setIcon(R.drawable.shell_tab_homepage));
-        tabLayout.addTab(tabLayout.newTab().setText("订单").setIcon(R.drawable.shell_tab_order));
-        tabLayout.addTab(tabLayout.newTab().setText("我的").setIcon(R.drawable.shell_tab_mine));
+        ShellAdapter adapter = new ShellAdapter(getSupportFragmentManager(),fragmentList);
+        viewPager.setAdapter(adapter);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        for (int i = 0; i < fragmentList.size(); i++) {
+            Objects.requireNonNull(tabLayout.getTabAt(i)).setIcon(tabIconList.get(i));
+            Objects.requireNonNull(tabLayout.getTabAt(i)).setText(tabTitleList.get(i));
+        }
+
     }
 
 }

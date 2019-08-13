@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <ProgressBar
+        android:id="@+id/pb_home_footer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:indeterminateTint="#ffbb2a"/>
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/tv_home_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#FFBB2A"
+        android:text="正在加载..."/>
+    
+</LinearLayout>
