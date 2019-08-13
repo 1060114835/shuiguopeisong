@@ -19,6 +19,8 @@
 
         </activity>
 
+        <activity android:name=".modules.home.self.MyDebugActivity"/>
+
         <activity android:name=".modules.home.shell.ShellActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
