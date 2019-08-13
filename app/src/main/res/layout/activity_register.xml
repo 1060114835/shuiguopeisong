@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:focusableInTouchMode="true"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -79,6 +80,7 @@
                     android:layout_height="30dp"
                     android:contentDescription="TODO" />
                 <EditText
+                    android:textCursorDrawable="@drawable/cursor_color_et"
                     android:singleLine="true"
                     android:background="@null"
                     android:textColor="#b6b6b6"
@@ -109,6 +111,7 @@
                     android:contentDescription="TODO" />
 
                 <EditText
+                    android:textCursorDrawable="@drawable/cursor_color_et"
                     android:layout_marginStart="5dp"
                     android:singleLine="true"
                     android:background="@null"
@@ -123,6 +126,7 @@
             </LinearLayout>
 
             <Button
+                android:layout_marginBottom="10dp"
                 android:id="@+id/bt_register"
                 android:textSize="16sp"
                 android:textColor="#fff"
