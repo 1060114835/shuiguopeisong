@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fruitdelivery.R;
 
@@ -23,7 +24,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
         void onClickStore(int position);
         void onClickThing(int position);
         void onClickPay(int position);
-        void onClickCancel(int position);
+        void onClickCancel(int position,View view);
     }
     private OnClickListener clickListener;
     private Context mContext;
@@ -40,12 +41,12 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         mContext = viewGroup.getContext();
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order_allitem,viewGroup,false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
         final int position = myViewHolder.getAdapterPosition();
         AllItemBean itemBean = mList.get(i);
         myViewHolder.tvPrice.setText(itemBean.Price);
@@ -61,6 +62,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
         myViewHolder.lyClickStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(mContext, "跳转商店详情页", Toast.LENGTH_SHORT).show();
                 clickListener.onClickStore(position);
             }
         });
@@ -70,6 +72,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
         myViewHolder.rlClickThing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(mContext, "跳转商品详情页", Toast.LENGTH_SHORT).show();
                 clickListener.onClickThing(position);
             }
         });
@@ -88,7 +91,8 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
         myViewHolder.btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onClickCancel(position);
+                Toast.makeText(mContext, "删除订单", Toast.LENGTH_SHORT).show();
+                clickListener.onClickCancel(position,myViewHolder.itemView);
             }
         });
     }
@@ -99,6 +103,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
+        View itemView;
         LinearLayout lyClickStore;
         RelativeLayout rlClickThing;
         Button btCancel;
@@ -113,6 +118,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.itemView = itemView;
             lyClickStore = itemView.findViewById(R.id.ly_order_pay);
             Log.d(TAG, "MyViewHolder: "+lyClickStore);
             rlClickThing = itemView.findViewById(R.id.rl_click_thing);
