@@ -23,13 +23,6 @@ import java.util.Objects;
  */
 public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> implements IShellView {
 
-    private List<Fragment> fragmentList;
-    private List<String> tabTitleList;
-    private List<Integer> tabIconList;
-
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_shell;
@@ -43,23 +36,28 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        viewPager = findViewById(R.id.shell_view_pager);
-        tabLayout = findViewById(R.id.shell_tab_layout);
-        fragmentList = new ArrayList<>();
-        tabTitleList = new ArrayList<>();
-        tabIconList = new ArrayList<>();
+        ViewPager viewPager = findViewById(R.id.shell_view_pager);
+        TabLayout tabLayout = findViewById(R.id.shell_tab_layout);
+        List<Fragment> fragmentList = new ArrayList<>();
+        final List<String> tabTitleList = new ArrayList<>();
+        List<Integer> tabIconList = new ArrayList<>();
+        final List<String> titleList = new ArrayList<>();
 
         fragmentList.add(new OrderFragment());
         fragmentList.add(new HomeFragment());
         fragmentList.add(new MyFragment());
-        tabTitleList.add("首页");
         tabTitleList.add("订单");
+        tabTitleList.add("首页");
         tabTitleList.add("我的");
-        tabIconList.add(R.drawable.shell_tab_homepage);
         tabIconList.add(R.drawable.shell_tab_order);
+        tabIconList.add(R.drawable.shell_tab_homepage);
         tabIconList.add(R.drawable.shell_tab_mine);
+        titleList.add("我的订单");
+        titleList.add("我的首页");
+        titleList.add("个人信息");
 
-        ShellAdapter adapter = new ShellAdapter(getSupportFragmentManager(),fragmentList);
+
+        ShellAdapter adapter = new ShellAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(adapter);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setupWithViewPager(viewPager);
@@ -67,6 +65,24 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
             Objects.requireNonNull(tabLayout.getTabAt(i)).setIcon(tabIconList.get(i));
             Objects.requireNonNull(tabLayout.getTabAt(i)).setText(tabTitleList.get(i));
         }
+        setTitle(titleList.get(1));
+        Objects.requireNonNull(tabLayout.getTabAt(1)).select();
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                setTitle(titleList.get(tab.getPosition()));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
