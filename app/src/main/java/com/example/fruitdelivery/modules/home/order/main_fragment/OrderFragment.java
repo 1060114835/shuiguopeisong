@@ -32,18 +32,18 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements Order
 
     @Override
     protected void initView() {
-        mFragmentData.clear();
-        mTitleData.clear();
-        mVpDisplay = mView.findViewById(R.id.vp_order);
-        tabLayout = mView.findViewById(R.id.tl_order_tab);
-        mTitleData.add("全部");
-        mTitleData.add("待付款");
-        mTitleData.add("待签收");
-        mTitleData.add("待评价");
-        mTitleData.add("已完成");
-        for (int i = 0; i < 5; i++) {
-            mFragmentData.add(new AllItemFragment());
-            tabLayout.addTab(tabLayout.newTab().setText(mTitleData.get(i)));
+        if (mTitleData.isEmpty()) {
+            mVpDisplay = mView.findViewById(R.id.vp_order);
+            tabLayout = mView.findViewById(R.id.tl_order_tab);
+            mTitleData.add("全部");
+            mTitleData.add("待付款");
+            mTitleData.add("待签收");
+            mTitleData.add("待评价");
+            mTitleData.add("已完成");
+            for (int i = 0; i < 5; i++) {
+                mFragmentData.add(new AllItemFragment());
+                tabLayout.addTab(tabLayout.newTab().setText(mTitleData.get(i)));
+            }
         }
         mVpDisplay.setAdapter(new OrderViewPagerAdapter(getActivity().getSupportFragmentManager(), mFragmentData, mTitleData));
         tabLayout.setupWithViewPager(mVpDisplay);
