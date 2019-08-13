@@ -11,16 +11,24 @@
         android:id="@+id/shell_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15">
+        android:layout_weight="8">
 
     </android.support.v4.view.ViewPager>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/shell_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:tabSelectedTextColor="#ffffff"
+        app:tabIndicatorColor="#000000"
+        app:tabRippleColor = "@android:color/transparent"
+        app:tabIndicatorHeight="3dp">
 
     </android.support.design.widget.TabLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
 </LinearLayout>

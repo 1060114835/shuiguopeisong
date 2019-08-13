@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="7dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:typeface="monospace"
+                android:text="@string/热销榜"/>
+
+            <View
+                android:layout_width="245dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:typeface="monospace"
+                android:text="@string/详情"/>
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_fore" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    
+</LinearLayout>
