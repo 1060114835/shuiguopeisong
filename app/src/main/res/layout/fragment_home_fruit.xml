@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="360dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="7dp">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="21dp" />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+
+
+           <View
+               android:layout_width="10dp"
+               android:layout_height="wrap_content"/>
+
+           <ImageView
+               android:id="@+id/img_home_fruit"
+               android:layout_width="95dp"
+               android:layout_height="75dp"
+               android:src="@drawable/home_fruit_strawberry"/>
+
+           <View
+               android:layout_width="10dp"
+               android:layout_height="wrap_content"/>
+
+           <LinearLayout
+               android:layout_width="200dp"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/爱上鲜旗舰店"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:typeface="monospace"/>
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <ImageView
+                       android:layout_width="12dp"
+                       android:layout_height="12dp"
+                       android:layout_gravity="center"
+                       android:src="@drawable/home_fruit_star"/>
+
+                   <View
+                       android:layout_width="4dp"
+                       android:layout_height="1dp" />
+
+                   <TextView
+                       android:layout_width="40dp"
+                       android:layout_height="14dp"
+                       android:textColor="#ffde2d"
+                       android:text="@string/_4_7"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="14dp"
+                       android:layout_gravity="center"
+                       android:text="@string/月售698"
+                       android:textSize="12sp"
+                       android:textColor="#bcbcb6"
+                       android:typeface="monospace"/>
+
+               </LinearLayout>
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="#000000"
+                   android:text="起送￥18|配送￥9|一斤￥5"
+                   android:typeface="monospace"/>
+
+               <View
+                   android:layout_width="wrap_content"
+                   android:layout_height="4dp" />
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="14dp"
+                   android:src="@drawable/home_fruit_discount"/>
+
+           </LinearLayout>
+
+           <View
+               android:layout_width="20dp"
+               android:layout_height="wrap_content"/>
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+               <View
+                   android:layout_width="wrap_content"
+                   android:layout_height="15dp" />
+
+               <ImageView
+                   android:layout_width="15dp"
+                   android:layout_height="15dp"
+                   android:src="@drawable/ic_fore"/>
+
+           </LinearLayout>
+
+       </LinearLayout>
+
+
+   </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

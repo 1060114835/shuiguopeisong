@@ -1,35 +1,25 @@
 package com.example.fruitdelivery.modules.home.order.Fragments.allitem;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
+
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
-import com.example.fruitdelivery.base.BasePresenter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +28,7 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
     private RecyclerView mRecyclerView;
     private PopupWindow popupWindow;
     private View popupView;
-    private TranslateAnimation animation;
-    private Drawable drawable;
+    private AllItemRecyclerViewAdapter mAdapter;
     private List<AllItemRecyclerViewAdapter.AllItemBean> mList = new ArrayList<>();
 
     @Override
@@ -56,12 +45,11 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
     protected void initView() {
         mPresenter.initData(mList);
         mRecyclerView = mView.findViewById(R.id.rv_order_allItem);
-        drawable = new BitmapDrawable(mPresenter.getBitmap());
         RecyclerView.LayoutManager manager = new LinearLayoutManager(mView.getContext());
-        AllItemRecyclerViewAdapter adapter = new AllItemRecyclerViewAdapter(mList);
-        adapter.setClickListener(this);
+        mAdapter = new AllItemRecyclerViewAdapter(mList);
+        mAdapter.setClickListener(this);
         mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -81,8 +69,26 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
     }
 
     @Override
-    public void onClickCancel(int position) {
+    public void onClickCancel(final int position, View v) {
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.order_cancel_anim);
+        v.startAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
 
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mList.remove(position);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
     /**
@@ -109,8 +115,6 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
     public void popupPayPage() {
         if (popupWindow == null) {
             popupView = View.inflate(getContext(), R.layout.pay_order, null);
-            String[] prices = {"1500", "200", "3000"};
-            String[] weights = {"1500g", "789g", "900g"};
             ArrayList<String> priceData = new ArrayList<>();
             priceData.add("1500元");
             priceData.add("200元");
@@ -129,9 +133,6 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
             priceRecyclerView.setLayoutManager(layoutManager2);
             weightRecyclerView.setAdapter(new TextRecyclerViewAdapter(weightData));
             priceRecyclerView.setAdapter(new TextRecyclerViewAdapter(priceData));
-
-//            addPrice(prices);
-//            addWeight(weights);
             popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.WRAP_CONTENT);
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -140,18 +141,14 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
                     lightOn();
                 }
             });
-            popupWindow.setBackgroundDrawable(drawable);
             popupWindow.setFocusable(true);
             popupWindow.setOutsideTouchable(true);
-//            animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0, Animation.RELATIVE_TO_PARENT, 0,
-//                    Animation.RELATIVE_TO_PARENT, 1, Animation.RELATIVE_TO_PARENT, 0);
-//            animation.setInterpolator(new AccelerateInterpolator());
-//            animation.setDuration(200);
         }
+        popupWindow.setAnimationStyle(R.style.popWindow);
         popupWindow.showAtLocation(mView.findViewById(R.id.rv_order_allItem), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-//        popupView.startAnimation(animation);
         lightOff();
     }
+
 
 
     class TextRecyclerViewAdapter extends RecyclerView.Adapter<TextRecyclerViewAdapter.ViewHolder> {
@@ -166,7 +163,7 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             View v = LayoutInflater
                     .from(viewGroup.getContext())
-                    .inflate(R.layout.fragment_textview_order, viewGroup,false);
+                    .inflate(R.layout.fragment_textview_order, viewGroup, false);
             return new ViewHolder(v);
         }
 
@@ -194,7 +191,6 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
                 textView = itemView.findViewById(R.id.tv_order_text);
             }
         }
-
     }
 }
 

@@ -7,4 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="popWindow" parent="android:Animation">
+        <item name="android:windowEnterAnimation" >@anim/order_popup_anim</item>
+        <item name="android:windowExitAnimation">@anim/order_exite_anim</item>
+    </style>
+
 </resources>
