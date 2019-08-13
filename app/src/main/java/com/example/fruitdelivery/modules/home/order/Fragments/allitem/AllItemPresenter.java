@@ -46,6 +46,4 @@ class AllItemPresenter extends BasePresenter<AllItemFragment,AllItemModel> {
             list.add(allItemBean5);
         }
     }
-
-
 }

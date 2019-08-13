@@ -1,7 +1,9 @@
 package com.example.fruitdelivery.common.net;
 
 
-import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
+
+
+import com.example.fruitdelivery.util.TestBean.JsonRootBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -15,8 +17,8 @@ public interface Apis {
     /**
      * 这个是网上的Api，这里只是拿来试验一下
      */
-    @GET(articleUrl)
-    Observable<JsonRootBean> getArticleCall();
+//    @GET(articleUrl)
+//    Observable<JsonRootBean> getArticleCall();
 
     @GET(pictureUrl)
     Observable<JsonRootBean> getPictureCall();
