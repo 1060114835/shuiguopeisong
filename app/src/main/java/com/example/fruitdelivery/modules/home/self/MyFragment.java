@@ -1,6 +1,8 @@
 package com.example.fruitdelivery.modules.home.self;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.TextView;
@@ -8,6 +10,11 @@ import android.widget.Toast;
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
 import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
+import com.example.fruitdelivery.modules.home.self.myUtil.BoolDataBack;
+import com.example.fruitdelivery.modules.home.self.myUtil.CardBottomAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -16,6 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClickListener,ISelfView {
 
+
+    /**
+     * The Uri list.
+     */
+    List<Integer> uriList = new ArrayList<>();
 
     //boolData为判断参数返回的标志；
     private static int boolData;
@@ -32,7 +44,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
      * 判断是否返回到了数据
      */
     ViewStub noOrder;
-
 
     @Override
     protected int getContentLayoutId() {
@@ -51,7 +62,14 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         myOrder = super.mView.findViewById(R.id.my_order);
         noOrder = super.mView.findViewById(R.id.no_order_bool);
 
-
+        //卡片底部的RecyclerView
+        initUris();
+        RecyclerView recyclerView = super.mView.findViewById(R.id.my_bottom_recycler);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+        CardBottomAdapter adapter = new CardBottomAdapter(getContext(),uriList);
+        recyclerView.setAdapter(adapter);
 
         //假如没有获取到订单数据
         boolData = 0;
@@ -59,6 +77,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
 
     }
 
+    public void initUris(){
+        uriList.add(R.drawable.my_fukuan);
+        uriList.add(R.drawable.my_fahuo);
+        uriList.add(R.drawable.my_shouhuo);
+        uriList.add(R.drawable.my_pingjia);
+        uriList.add(R.drawable.my_tuikuan);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -71,16 +96,18 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.my_order:
-
-                //跳转至订单页
                 Toast.makeText(getContext(),"跳转至订单页",Toast.LENGTH_SHORT).show();
+
+                //活动与碎片的通信
+                //跳转至订单页:1
+//                Activity activity = getBActivity();
+//                activity.getViewPager().setCurrentItem(position);
                 break;
 
             default:
                 break;
         }
     }
-
 
 //    设置数据
     @Override

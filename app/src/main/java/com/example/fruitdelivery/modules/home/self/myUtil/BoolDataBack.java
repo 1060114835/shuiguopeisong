@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.self;
+package com.example.fruitdelivery.modules.home.self.myUtil;
 
 import android.view.ViewStub;
 
