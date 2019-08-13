@@ -24,12 +24,7 @@ class MyModel extends BaseModel<JsonRootBean> {
 
     public MyModel(CallBack callBack){
             this.mCallBack = callBack;
-            AnalysisUtil.getDefault().getArticleCall(new AnalysisUtil.ArticleCallBack() {
-                @Override
-                public void onSuccess(JsonRootBean jsonRootBean) {
-                    mCallBack.setJson(jsonRootBean);
-                }
-            });
+           
         }
 
     /**

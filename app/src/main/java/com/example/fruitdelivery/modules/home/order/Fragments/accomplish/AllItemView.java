@@ -1,4 +1,7 @@
 package com.example.fruitdelivery.modules.home.order.Fragments.accomplish;
 
-public class AllItemView {
+import com.example.fruitdelivery.base.IView;
+
+public interface AllItemView extends IView {
+
 }
