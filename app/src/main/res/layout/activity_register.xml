@@ -126,7 +126,7 @@
             </LinearLayout>
 
             <Button
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:id="@+id/bt_register"
                 android:textSize="16sp"
                 android:textColor="#fff"
