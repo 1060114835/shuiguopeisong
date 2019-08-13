@@ -14,7 +14,7 @@ import com.example.fruitdelivery.R;
 /**
  * @author dyy15
  */
-public class Test extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     private ScrollView mRootScrollView;
     private EditText input;
     private Handler mhandler=new Handler();
