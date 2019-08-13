@@ -3,7 +3,7 @@ package com.example.fruitdelivery.util;
 import android.util.Log;
 
 import com.example.fruitdelivery.common.net.Apis;
-import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
+import com.example.fruitdelivery.util.TestBean.JsonRootBean;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -81,8 +81,8 @@ public final class AnalysisUtil {
                     }
 
                     @Override
-                    public void onNext(JsonRootBean jsonRootBean) {
-                        callBack.onSuccess(jsonRootBean);
+                    public void onNext(JsonRootBean value) {
+                        callBack.onSuccess(value);
                         Log.d(TAG, "onNext: 数据请求成功");
                     }
 
@@ -97,31 +97,30 @@ public final class AnalysisUtil {
                     }
                 });
     }
-    public void getPictureCall(final ArticleCallBack callBack) {
-        apis.getArticleCall()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<JsonRootBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(JsonRootBean jsonRootBean) {
-                        callBack.onSuccess(jsonRootBean);
-                        Log.d(TAG, "onNext: 数据请求成功");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "onError: 请求数据失败"+e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.d(TAG, "onComplete: 请求数据完成"+System.currentTimeMillis());
-                    }
-                });
+//    public void getPictureCall(final ArticleCallBack callBack) {
+//        apis.getArticleCall()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<JsonRootBean>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(JsonRootBean jsonRootBean) {
+//                        callBack.onSuccess(jsonRootBean);
+//                        Log.d(TAG, "onNext: 数据请求成功");
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.d(TAG, "onError: 请求数据失败"+e);
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        Log.d(TAG, "onComplete: 请求数据完成"+System.currentTimeMillis());
+//                    }
+//                });
     }
-}

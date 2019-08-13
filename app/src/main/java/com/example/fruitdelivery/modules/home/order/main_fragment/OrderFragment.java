@@ -48,7 +48,6 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements Order
             }
             flags = false;
         }
-
         mVpDisplay.setAdapter(new OrderViewPagerAdapter(getChildFragmentManager(), mFragmentData, mTitleData));
         tabLayout.setupWithViewPager(mVpDisplay);
     }
