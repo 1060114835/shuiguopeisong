@@ -23,6 +23,9 @@ import java.util.Objects;
  */
 public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> implements IShellView {
 
+    ViewPager viewPager;
+    TabLayout tabLayout;
+
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_shell;
@@ -36,8 +39,8 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        ViewPager viewPager = findViewById(R.id.shell_view_pager);
-        TabLayout tabLayout = findViewById(R.id.shell_tab_layout);
+        viewPager = findViewById(R.id.shell_view_pager);
+        tabLayout = findViewById(R.id.shell_tab_layout);
         List<Fragment> fragmentList = new ArrayList<>();
         final List<String> tabTitleList = new ArrayList<>();
         List<Integer> tabIconList = new ArrayList<>();
@@ -84,6 +87,20 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
             }
         });
 
+    }
+
+    public ViewPager getViewPager() {
+        if(viewPager != null) {
+            return viewPager;
+        }
+        return null;
+    }
+
+    public TabLayout getTabLayout() {
+        if (tabLayout != null) {
+            return tabLayout;
+        }
+        return null;
     }
 
 }
