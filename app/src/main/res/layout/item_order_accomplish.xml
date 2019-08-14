@@ -63,7 +63,7 @@
                 android:id="@+id/demo1_accomplish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/iv_order_item_fruit"
+                android:layout_toEndOf="@+id/iv_order_item_accomplish_fruit"
                 app:cardCornerRadius="10dp">
 
                 <TextView
@@ -81,7 +81,7 @@
                 android:background="#FEEF92"
                 android:layout_marginStart="5dp"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/demo1"
+                android:layout_toEndOf="@+id/demo1_accomplish"
                 app:cardCornerRadius="10dp">
 
                 <TextView

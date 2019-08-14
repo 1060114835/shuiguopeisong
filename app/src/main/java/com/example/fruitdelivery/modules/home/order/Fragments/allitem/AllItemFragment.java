@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
     private View popupView;
     private AllItemRecyclerViewAdapter mAdapter;
     private List<AllItemRecyclerViewAdapter.AllItemBean> mList = new ArrayList<>();
+    private boolean flags = true;
 
     @Override
     protected int getContentLayoutId() {
@@ -43,7 +45,10 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
 
     @Override
     protected void initView() {
-        mPresenter.initData(mList);
+        if (flags) {
+            mPresenter.initData(mList);
+            flags = false;
+        }
         mRecyclerView = mView.findViewById(R.id.rv_order_allItem);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(mView.getContext());
         mAdapter = new AllItemRecyclerViewAdapter(mList);
@@ -135,6 +140,7 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
             priceRecyclerView.setAdapter(new TextRecyclerViewAdapter(priceData));
             popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.WRAP_CONTENT);
+            popupWindow.setAnimationStyle(R.style.popWindow);
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -143,8 +149,14 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
             });
             popupWindow.setFocusable(true);
             popupWindow.setOutsideTouchable(true);
+            Button btPay = popupView.findViewById(R.id.bt_order_pay_sure);
+            btPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupWindow.dismiss();
+                }
+            });
         }
-        popupWindow.setAnimationStyle(R.style.popWindow);
         popupWindow.showAtLocation(mView.findViewById(R.id.rv_order_allItem), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         lightOff();
     }

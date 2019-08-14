@@ -8,9 +8,12 @@ import android.util.Log;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
-import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
+import com.example.fruitdelivery.modules.home.order.Fragments.accomplish.AccomplishFragment;
 import com.example.fruitdelivery.modules.home.order.Fragments.allitem.AllItemFragment;
+import com.example.fruitdelivery.modules.home.order.Fragments.no_evaluate.NoEvaluateFragment;
+import com.example.fruitdelivery.modules.home.order.Fragments.no_sign.NoSignFragment;
 import com.example.fruitdelivery.util.AnalysisUtil;
+import com.example.fruitdelivery.util.TestBean.JsonRootBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +45,13 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements Order
             mTitleData.add("待签收");
             mTitleData.add("待评价");
             mTitleData.add("已完成");
-            for (int i = 0; i < 5; i++) {
-                mFragmentData.add(new AllItemFragment());
+            for (int i = 0; i < 5; i++)
                 tabLayout.addTab(tabLayout.newTab().setText(mTitleData.get(i)));
-            }
+            mFragmentData.add(new AllItemFragment());
+            mFragmentData.add(new AllItemFragment());
+            mFragmentData.add(new NoSignFragment());
+            mFragmentData.add(new NoEvaluateFragment());
+            mFragmentData.add(new AccomplishFragment());
             flags = false;
         }
         mVpDisplay.setAdapter(new OrderViewPagerAdapter(getChildFragmentManager(), mFragmentData, mTitleData));
