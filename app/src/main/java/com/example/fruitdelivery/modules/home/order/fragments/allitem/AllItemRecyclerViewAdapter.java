@@ -1,9 +1,8 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.allitem;
+package com.example.fruitdelivery.modules.home.order.fragments.allitem;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
 
 import java.util.List;
 
@@ -22,13 +22,18 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
 
     public interface OnClickListener {
         void onClickStore(int position);
+
         void onClickThing(int position);
+
         void onClickPay(int position);
-        void onClickCancel(int position,View view);
+
+        void onClickCancel(int position, View view);
     }
+
     private OnClickListener clickListener;
     private Context mContext;
-    private List<AllItemBean> mList ;
+    private List<AllItemBean> mList;
+
     AllItemRecyclerViewAdapter(List<AllItemBean> listView) {
         super();
         mList = listView;
@@ -37,11 +42,12 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
     void setClickListener(OnClickListener onClickListener) {
         this.clickListener = onClickListener;
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         mContext = viewGroup.getContext();
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order_allitem,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order_allitem, viewGroup, false);
         return new MyViewHolder(view);
     }
 
@@ -91,8 +97,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
         viewHolder.btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "删除订单", Toast.LENGTH_SHORT).show();
-                clickListener.onClickCancel(position,viewHolder.itemView);
+                clickListener.onClickCancel(position, viewHolder.itemView);
             }
         });
     }
@@ -132,28 +137,5 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
             tvTotalPrice = itemView.findViewById(R.id.tv_order_item_allPrice);
 
         }
-    }
-    public static class AllItemBean {
-        public AllItemBean(String store, String unit, String classFruit,
-                           String freight, String saleVolume,
-                           String price, String number, String totalPrice) {
-            this.store = store;
-            this.unit = unit;
-            this.classFruit = classFruit;
-            this.freight = freight;
-            this.saleVolume = saleVolume;
-            Price = price;
-            this.number = number;
-            this.totalPrice = totalPrice;
-        }
-
-        public String store;  //店铺名称
-        public String unit;//左边的单价
-        public String classFruit;//水果种类
-        public String freight;//运费
-        public String saleVolume;//销量
-        public String Price;//右边的单价
-        public String number;//数量
-        public String totalPrice;//下面的总价
     }
 }

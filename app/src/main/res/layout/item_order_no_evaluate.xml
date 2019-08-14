@@ -169,6 +169,7 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/bt_order_item_evaluate"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
