@@ -3,7 +3,6 @@ package com.example.fruitdelivery.modules.home.order.Fragments.allitem;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +21,18 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
 
     public interface OnClickListener {
         void onClickStore(int position);
+
         void onClickThing(int position);
+
         void onClickPay(int position);
-        void onClickCancel(int position,View view);
+
+        void onClickCancel(int position, View view);
     }
+
     private OnClickListener clickListener;
     private Context mContext;
-    private List<AllItemBean> mList ;
+    private List<AllItemBean> mList;
+
     AllItemRecyclerViewAdapter(List<AllItemBean> listView) {
         super();
         mList = listView;
@@ -37,11 +41,12 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
     void setClickListener(OnClickListener onClickListener) {
         this.clickListener = onClickListener;
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         mContext = viewGroup.getContext();
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order_allitem,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order_allitem, viewGroup, false);
         return new MyViewHolder(view);
     }
 
@@ -91,8 +96,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
         viewHolder.btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "删除订单", Toast.LENGTH_SHORT).show();
-                clickListener.onClickCancel(position,viewHolder.itemView);
+                clickListener.onClickCancel(position, viewHolder.itemView);
             }
         });
     }
@@ -133,6 +137,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
 
         }
     }
+
     public static class AllItemBean {
         public AllItemBean(String store, String unit, String classFruit,
                            String freight, String saleVolume,

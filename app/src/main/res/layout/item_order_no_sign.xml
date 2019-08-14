@@ -172,7 +172,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/order_button_style"
-                android:text="未签收" />
+                android:text="立即签收" />
         </RelativeLayout>
 
 

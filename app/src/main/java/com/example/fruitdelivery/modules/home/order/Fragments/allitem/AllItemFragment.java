@@ -1,9 +1,9 @@
 package com.example.fruitdelivery.modules.home.order.Fragments.allitem;
 
 
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
@@ -26,10 +26,12 @@ import java.util.List;
 
 public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
         AllItemRecyclerViewAdapter.OnClickListener, AllItemView {
+    private Animation animation;
     private RecyclerView mRecyclerView;
     private PopupWindow popupWindow;
     private View popupView;
     private AllItemRecyclerViewAdapter mAdapter;
+
     private List<AllItemRecyclerViewAdapter.AllItemBean> mList = new ArrayList<>();
     private boolean flags = true;
 
@@ -49,7 +51,9 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
             mPresenter.initData(mList);
             flags = false;
         }
+        animation = AnimationUtils.loadAnimation(getContext(), R.anim.order_cancel_anim);
         mRecyclerView = mView.findViewById(R.id.rv_order_allItem);
+        mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(mView.getContext());
         mAdapter = new AllItemRecyclerViewAdapter(mList);
         mAdapter.setClickListener(this);
@@ -74,26 +78,43 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
     }
 
     @Override
-    public void onClickCancel(final int position, View v) {
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.order_cancel_anim);
-        v.startAnimation(animation);
-        animation.setAnimationListener(new Animation.AnimationListener() {
+    public void onClickCancel(final int position, final View v) {
+        final AlertDialog.Builder alterDiaglog = new AlertDialog.Builder(getContext());
+        alterDiaglog.setTitle("订单");//文字
+        alterDiaglog.setMessage("你确认取消该订单吗?");//提示消息
+        //积极的选择
+        alterDiaglog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
+            public void onClick(DialogInterface dialog, int which) {
+                v.startAnimation(animation);
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
 
-            }
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mList.remove(position);
+                        mAdapter.notifyDataSetChanged();
+                    }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                mList.remove(position);
-                mAdapter.notifyDataSetChanged();
-            }
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
+                    }
+                });
             }
         });
+        //消极的选择
+        alterDiaglog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, int which) {
+
+            }
+        }).show();
+
+
+        //显示
     }
 
     /**
@@ -154,6 +175,7 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
                 @Override
                 public void onClick(View v) {
                     popupWindow.dismiss();
+                    toast("跳转支付页面");
                 }
             });
         }

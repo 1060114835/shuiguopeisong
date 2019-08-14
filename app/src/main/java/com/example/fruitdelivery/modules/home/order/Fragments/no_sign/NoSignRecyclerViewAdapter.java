@@ -50,7 +50,7 @@ public class NoSignRecyclerViewAdapter extends RecyclerView.Adapter<NoSignRecycl
         viewHolder.btSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "跳转评价页", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "跳转签收", Toast.LENGTH_SHORT).show();
             }
         });
     }

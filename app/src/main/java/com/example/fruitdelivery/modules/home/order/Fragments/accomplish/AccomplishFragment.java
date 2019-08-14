@@ -1,5 +1,6 @@
 package com.example.fruitdelivery.modules.home.order.Fragments.accomplish;
 
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
