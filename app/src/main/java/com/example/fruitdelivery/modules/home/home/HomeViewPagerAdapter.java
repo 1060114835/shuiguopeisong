@@ -2,6 +2,7 @@ package com.example.fruitdelivery.modules.home.home;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -21,10 +22,13 @@ public class HomeViewPagerAdapter extends PagerAdapter {
 
     public HomeViewPagerAdapter(List<ImageView> imageViewList) {
         this.imageViewList = imageViewList;
+        Log.d("TAG","ViewPager的Adapter构造方法得到执行");
     }
 
     @Override
     public int getCount() {
+        Log.d("TAG","getCount()方法得到执行");
+
         return Integer.MAX_VALUE;
     }
 
@@ -36,6 +40,8 @@ public class HomeViewPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
+
+        Log.d("TAG","instantiateItem方法得到执行");
 
         position %= imageViewList.size();
         if (position < 0) {
@@ -51,4 +57,8 @@ public class HomeViewPagerAdapter extends PagerAdapter {
         return imageView;
     }
 
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+
+    }
 }
