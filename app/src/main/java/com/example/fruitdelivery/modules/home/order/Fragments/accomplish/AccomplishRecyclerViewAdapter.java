@@ -1,7 +1,9 @@
 package com.example.fruitdelivery.modules.home.order.Fragments.accomplish;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,25 +56,40 @@ public class AccomplishRecyclerViewAdapter extends RecyclerView.Adapter<Accompli
         viewHolder.btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.order_cancel_anim);
-                viewHolder.itemView.startAnimation(animation);
-                animation.setAnimationListener(new Animation.AnimationListener() {
+                final AlertDialog.Builder alterDiaglog = new AlertDialog.Builder(mContext);
+                alterDiaglog.setTitle("记录");//文字
+                alterDiaglog.setMessage("你确认删除该记录吗?");//提示消息
+                //积极的选择
+                alterDiaglog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onAnimationStart(Animation animation) {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.order_cancel_anim);
+                        viewHolder.itemView.startAnimation(animation);
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+                                mList.remove(position);
+                            }
 
-                    }
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                notifyDataSetChanged();
+                            }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mList.remove(position);
-                        notifyDataSetChanged();
-                    }
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
+                            }
+                        });
                     }
                 });
+                //消极的选择
+                alterDiaglog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, int which) {
+
+                    }
+                }).show();
             }
         });
          /*
