@@ -31,6 +31,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private static final int TYPE_FRUIT = 3;
     private static final int TYPE_FOOTER = 4;
 
+    public final int STATE_LOADING = 0;
+    public final int STATE_FINISH  = 1;
+    private int state = STATE_LOADING;
+
     public HomeRecyclerViewAdapter(List<String> urlList, Context context) {
         this.urlList = urlList;
         this.context = context;
@@ -69,9 +73,15 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         if (viewHolder instanceof BannerViewHolder) {
 
+            BannerViewHolder bannerViewHolder = (BannerViewHolder)viewHolder;
+
         }else if (viewHolder instanceof FunctionViewHolder) {
 
+            FunctionViewHolder functionViewHolder = (FunctionViewHolder)viewHolder;
+
         }else if (viewHolder instanceof SellersViewHolder) {
+
+            SellersViewHolder sellersViewHolder = (SellersViewHolder)viewHolder;
 
         }else if (viewHolder instanceof FruitViewHolder) {
 
@@ -79,7 +89,17 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             Glide.with(context).load(urlList.get(i)).into(fruitViewHolder.imageView);
 
         }else if (viewHolder instanceof FooterViewHolder) {
+
             FooterViewHolder footerViewHolder = (FooterViewHolder)viewHolder;
+            switch (state) {
+                case STATE_LOADING:
+                    break;
+                case STATE_FINISH:
+                    footerViewHolder.progressBar.setVisibility(View.GONE);
+                    footerViewHolder.textView.setText("我也是有底线的~");
+                default:
+                    break;
+            }
 
         }
     }
@@ -102,6 +122,13 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }else {
             return TYPE_FRUIT;
         }
+    }
+
+    /**
+     * 设置当前的加载状态，主要为了设置底部的Footer的样式
+     */
+    public void setLoadState(int state) {
+        this.state = state;
     }
 
     class BannerViewHolder extends RecyclerView.ViewHolder {
