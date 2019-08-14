@@ -9,4 +9,9 @@
     <string name="爱上鲜旗舰店">爱上鲜旗舰店</string>
     <string name="_4_7">4.7</string>
     <string name="月售698">月售698</string>
+    <string name="password">请输入密码</string>
+    <string name="number">请输入手机号</string>
+    <string name="head">head</string>
+    <string name="register">立即注册</string>
+    <string name="phone_number">phone_number</string>
 </resources>
