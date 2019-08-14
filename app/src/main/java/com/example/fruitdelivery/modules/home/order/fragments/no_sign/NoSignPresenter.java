@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.no_sign;
+package com.example.fruitdelivery.modules.home.order.fragments.no_sign;
 
 import com.example.fruitdelivery.base.BasePresenter;
 

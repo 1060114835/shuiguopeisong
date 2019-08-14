@@ -2,18 +2,14 @@ package com.example.fruitdelivery.modules.home.order.main_fragment;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
-import com.example.fruitdelivery.modules.home.order.Fragments.accomplish.AccomplishFragment;
-import com.example.fruitdelivery.modules.home.order.Fragments.allitem.AllItemFragment;
-import com.example.fruitdelivery.modules.home.order.Fragments.no_evaluate.NoEvaluateFragment;
-import com.example.fruitdelivery.modules.home.order.Fragments.no_sign.NoSignFragment;
-import com.example.fruitdelivery.util.AnalysisUtil;
-import com.example.fruitdelivery.util.TestBean.JsonRootBean;
+import com.example.fruitdelivery.modules.home.order.fragments.accomplish.AccomplishFragment;
+import com.example.fruitdelivery.modules.home.order.fragments.allitem.AllItemFragment;
+import com.example.fruitdelivery.modules.home.order.fragments.no_evaluate.NoEvaluateFragment;
+import com.example.fruitdelivery.modules.home.order.fragments.no_sign.NoSignFragment;
 
 import java.util.ArrayList;
 import java.util.List;

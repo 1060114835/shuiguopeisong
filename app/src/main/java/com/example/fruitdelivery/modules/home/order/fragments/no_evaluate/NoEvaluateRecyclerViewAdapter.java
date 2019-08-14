@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.no_evaluate;
+package com.example.fruitdelivery.modules.home.order.fragments.no_evaluate;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,15 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fruitdelivery.R;
-import com.example.fruitdelivery.modules.home.order.Fragments.allitem.AllItemRecyclerViewAdapter;
+import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
 
 import java.util.List;
 
 public class NoEvaluateRecyclerViewAdapter extends RecyclerView.Adapter<NoEvaluateRecyclerViewAdapter.ViewHolder> {
     private Context mContext;
-    private List<AllItemRecyclerViewAdapter.AllItemBean> mList;
+    private List<AllItemBean> mList;
 
-    public NoEvaluateRecyclerViewAdapter(List<AllItemRecyclerViewAdapter.AllItemBean> mList) {
+    public NoEvaluateRecyclerViewAdapter(List<AllItemBean> mList) {
         this.mList = mList;
     }
 
@@ -36,7 +36,7 @@ public class NoEvaluateRecyclerViewAdapter extends RecyclerView.Adapter<NoEvalua
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final int position = viewHolder.getAdapterPosition();
-        AllItemRecyclerViewAdapter.AllItemBean itemBean = mList.get(i);
+        AllItemBean itemBean = mList.get(i);
         viewHolder.tvPrice.setText(itemBean.Price);
         viewHolder.tvTotalPrice.setText(itemBean.totalPrice);
         viewHolder.tvSaleVolume.setText(itemBean.saleVolume);

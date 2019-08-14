@@ -1,11 +1,10 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.accomplish;
+package com.example.fruitdelivery.modules.home.order.fragments.accomplish;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fruitdelivery.R;
-import com.example.fruitdelivery.modules.home.order.Fragments.allitem.AllItemRecyclerViewAdapter;
+import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class AccomplishRecyclerViewAdapter extends RecyclerView.Adapter<AccomplishRecyclerViewAdapter.ViewHolder> {
-    private List<AllItemRecyclerViewAdapter.AllItemBean> mList;
+    private List<AllItemBean> mList;
     private Context mContext;
 
-    public AccomplishRecyclerViewAdapter(List<AllItemRecyclerViewAdapter.AllItemBean> mList) {
+    public AccomplishRecyclerViewAdapter(List<AllItemBean> mList) {
         this.mList = mList;
     }
 
@@ -42,7 +40,7 @@ public class AccomplishRecyclerViewAdapter extends RecyclerView.Adapter<Accompli
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final int position = viewHolder.getAdapterPosition();
-        AllItemRecyclerViewAdapter.AllItemBean itemBean = mList.get(i);
+        AllItemBean itemBean = mList.get(i);
         viewHolder.tvPrice.setText(itemBean.Price);
         viewHolder.tvTotalPrice.setText(itemBean.totalPrice);
         viewHolder.tvSaleVolume.setText(itemBean.saleVolume);

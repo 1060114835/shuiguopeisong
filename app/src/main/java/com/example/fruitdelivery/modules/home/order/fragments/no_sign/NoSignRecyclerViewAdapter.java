@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.no_sign;
+package com.example.fruitdelivery.modules.home.order.fragments.no_sign;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,16 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fruitdelivery.R;
-import com.example.fruitdelivery.modules.home.order.Fragments.allitem.AllItemRecyclerViewAdapter;
-import com.example.fruitdelivery.modules.home.order.Fragments.no_evaluate.NoEvaluateRecyclerViewAdapter;
+import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
 
 import java.util.List;
 
 public class NoSignRecyclerViewAdapter extends RecyclerView.Adapter<NoSignRecyclerViewAdapter.ViewHolder> {
     private Context mContext;
-    private List<AllItemRecyclerViewAdapter.AllItemBean> mList;
+    private List<AllItemBean> mList;
 
-    public NoSignRecyclerViewAdapter(List<AllItemRecyclerViewAdapter.AllItemBean> mList) {
+    public NoSignRecyclerViewAdapter(List<AllItemBean> mList) {
         this.mList = mList;
     }
 
@@ -38,7 +37,7 @@ public class NoSignRecyclerViewAdapter extends RecyclerView.Adapter<NoSignRecycl
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final int position = viewHolder.getAdapterPosition();
-        AllItemRecyclerViewAdapter.AllItemBean itemBean = mList.get(i);
+        AllItemBean itemBean = mList.get(i);
         Log.d("chen", "onBindViewHolder: "+viewHolder.tvPrice+"    "+itemBean.Price);
         viewHolder.tvPrice.setText(itemBean.Price);
         viewHolder.tvTotalPrice.setText(itemBean.totalPrice);

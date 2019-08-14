@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.allitem;
+package com.example.fruitdelivery.modules.home.order.fragments.allitem;
 
 
 import android.content.DialogInterface;
@@ -16,23 +16,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
+import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
         AllItemRecyclerViewAdapter.OnClickListener, AllItemView {
-    private Animation animation;
     private RecyclerView mRecyclerView;
     private PopupWindow popupWindow;
     private View popupView;
     private AllItemRecyclerViewAdapter mAdapter;
-
-    private List<AllItemRecyclerViewAdapter.AllItemBean> mList = new ArrayList<>();
+    private List<AllItemBean> mList = new ArrayList<>();
     private boolean flags = true;
 
     @Override
@@ -51,9 +49,7 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
             mPresenter.initData(mList);
             flags = false;
         }
-        animation = AnimationUtils.loadAnimation(getContext(), R.anim.order_cancel_anim);
         mRecyclerView = mView.findViewById(R.id.rv_order_allItem);
-        mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(mView.getContext());
         mAdapter = new AllItemRecyclerViewAdapter(mList);
         mAdapter.setClickListener(this);
@@ -86,6 +82,7 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
         alterDiaglog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.order_cancel_anim);
                 v.startAnimation(animation);
                 animation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -105,16 +102,12 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
                 });
             }
         });
-        //消极的选择
         alterDiaglog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
 
             }
         }).show();
-
-
-        //显示
     }
 
     /**
@@ -175,14 +168,12 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
                 @Override
                 public void onClick(View v) {
                     popupWindow.dismiss();
-                    toast("跳转支付页面");
                 }
             });
         }
         popupWindow.showAtLocation(mView.findViewById(R.id.rv_order_allItem), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         lightOff();
     }
-
 
 
     class TextRecyclerViewAdapter extends RecyclerView.Adapter<TextRecyclerViewAdapter.ViewHolder> {

@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.no_evaluate;
+package com.example.fruitdelivery.modules.home.order.fragments.no_evaluate;
 
 import com.example.fruitdelivery.base.BaseModel;
 

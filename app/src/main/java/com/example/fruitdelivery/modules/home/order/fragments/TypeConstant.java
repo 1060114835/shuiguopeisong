@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order.Fragments;
+package com.example.fruitdelivery.modules.home.order.fragments;
 
 public final class TypeConstant {
     public static final int TOTAL = 0;

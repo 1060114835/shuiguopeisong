@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.total;
+package com.example.fruitdelivery.modules.home.order.fragments.total;
 
 import com.example.fruitdelivery.base.BaseModel;
 

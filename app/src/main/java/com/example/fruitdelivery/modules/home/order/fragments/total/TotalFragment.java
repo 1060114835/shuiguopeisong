@@ -1,11 +1,10 @@
-package com.example.fruitdelivery.modules.home.order.Fragments.total;
+package com.example.fruitdelivery.modules.home.order.fragments.total;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
-import com.example.fruitdelivery.base.BasePresenter;
 
 public class TotalFragment extends BaseFragment<TotalPresenter> {
     private RecyclerView recyclerView;
