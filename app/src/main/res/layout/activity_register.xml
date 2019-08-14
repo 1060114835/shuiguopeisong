@@ -25,8 +25,9 @@
             android:layout_marginStart="4dp"
             android:background="@drawable/clk_back"
             android:scaleType="fitCenter"
-            tools:ignore="ContentDescription"
-            android:focusable="true" />
+            tools:ignore="ContentDescription,RtlHardcoded"
+            android:focusable="true"
+            android:layout_marginLeft="4dp" />
 
         <TextView
             android:textStyle="bold"
@@ -36,106 +37,135 @@
             android:gravity="center"
             android:textSize="16sp"
             android:textColor="#000000"
-            android:paddingStart="70dp"
-            android:paddingEnd="70dp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:text="立即注册"/>
+            android:text="@string/register"
+            />
 
     </FrameLayout>
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:background="@color/colorBaseBackground"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorBaseBackground"
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_marginTop="50dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_head"
-                android:layout_gravity="center"
                 android:id="@+id/iv_head"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:contentDescription="TODO" />
+                android:layout_gravity="center"
+                android:layout_marginStart="298px"
+                android:layout_marginTop="188px"
+                android:layout_marginEnd="299px"
+                android:contentDescription="@string/head"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_head"
+                tools:ignore="PxUsage" />
 
             <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="132px"
                 android:layout_gravity="center"
-                android:layout_width="330dp"
+                android:layout_marginStart="76px"
+                android:layout_marginTop="71px"
+                android:layout_marginEnd="66px"
+                android:background="@drawable/round_corner_et"
                 android:orientation="horizontal"
-                android:layout_marginTop="40dp"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/round_corner_et">
+                tools:ignore="PxUsage">
 
                 <ImageView
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/ic_phone"
                     android:id="@+id/iv_account"
                     android:layout_width="35dp"
                     android:layout_height="30dp"
-                    android:contentDescription="TODO" />
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="40px"
+                    android:layout_marginTop="22px"
+                    android:layout_marginRight="14px"
+                    android:layout_marginBottom="21px"
+                    android:src="@drawable/ic_phone"
+                    android:contentDescription="@string/phone_number"
+                    tools:ignore="PxUsage,RtlHardcoded" />
+
                 <EditText
-                    android:textCursorDrawable="@drawable/cursor_color_et"
-                    android:singleLine="true"
-                    android:background="@null"
-                    android:textColor="#b6b6b6"
-                    android:layout_marginTop="15dp"
-                    android:hint="请输入手机号"
                     android:id="@+id/et_account"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:hint="@string/number"
+                    android:inputType=""
                     android:maxLines="1"
-                    tools:ignore="Autofill"
-                    android:inputType="" />
+                    android:paddingEnd="388px"
+                    android:singleLine="true"
+                    android:textColor="#b6b6b6"
+                    android:textCursorDrawable="@drawable/cursor_color_et"
+                    android:textSize="15sp"
+                    tools:ignore="Autofill,PxUsage,RtlSymmetry" />
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="132px"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
+                android:layout_marginStart="76px"
+                android:layout_marginTop="30px"
+                android:layout_marginEnd="66px"
                 android:background="@drawable/round_corner_et"
-                android:layout_marginTop="15dp"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_width="330dp">
+                android:orientation="horizontal"
+                tools:ignore="PxUsage">
+
                 <ImageView
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/ic_password"
                     android:id="@+id/iv_password"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
-                    android:contentDescription="TODO" />
+                    android:layout_gravity="center"
+                    android:layout_marginStart="38px"
+                    android:layout_marginTop="29px"
+                    android:layout_marginEnd="17px"
+                    android:layout_marginBottom="28px"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/ic_password"
+                    tools:ignore="PxUsage" />
 
                 <EditText
-                    android:textCursorDrawable="@drawable/cursor_color_et"
-                    android:layout_marginStart="5dp"
-                    android:singleLine="true"
-                    android:background="@null"
-                    android:textColor="#b6b6b6"
-                    android:layout_marginTop="15dp"
-                    android:hint="请输入密码"
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:hint="@string/password"
                     android:maxLines="1"
-                    tools:ignore="TextFields" />
+                    android:paddingEnd="388px"
+                    android:singleLine="true"
+                    android:textColor="#b6b6b6"
+                    android:textCursorDrawable="@drawable/cursor_color_et"
+                    android:textSize="15sp"
+                    tools:ignore="PxUsage,RtlSymmetry,TextFields" />
             </LinearLayout>
 
             <Button
-                android:layout_marginBottom="20dp"
                 android:id="@+id/bt_register"
-                android:textSize="16sp"
-                android:textColor="#fff"
-                android:background="@drawable/round_corner_bt"
-                android:layout_marginTop="25dp"
-                android:text="立即注册"
+                android:layout_width="550px"
+                android:layout_height="132px"
                 android:layout_gravity="center"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="149dp"
+                android:layout_marginLeft="149dp"
+                android:layout_marginTop="40px"
+                android:layout_marginEnd="151dp"
+                android:layout_marginRight="151dp"
+                android:layout_marginBottom="709dp"
+                android:background="@drawable/round_corner_bt"
+                android:text="@string/register"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                tools:ignore="PxUsage,RtlHardcoded" />
 
         </LinearLayout>
     </ScrollView>
