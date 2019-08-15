@@ -5,46 +5,65 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.base.BaseActivity;
+import com.example.fruitdelivery.base.BasePresenter;
 import com.example.fruitdelivery.modules.account.login.LoginActivity;
+import com.example.fruitdelivery.modules.home.shell.ShellActivity;
 
 
-
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity implements View.OnClickListener {
     private ScrollView mRootScrollView;
-    private EditText input;
     private Handler mhandler=new Handler();
-    private Button button;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        button=findViewById(R.id.bt_register);
+    protected int getContentLayoutId() {
+      return R.layout.activity_register;
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        ImageView imageView = findViewById(R.id.iv_register_back);
+        Button button = findViewById(R.id.bt_register);
         mRootScrollView=findViewById(R.id.scrollView);
-        input = findViewById(R.id.et_account);
-        input.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        EditText input = findViewById(R.id.et_account);
+        button.setOnClickListener(this);
+        input.setOnClickListener(this);
+        imageView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bt_register:
+               
+                break;
+            case R.id.iv_register_back:
+                Intent intent1=new Intent(this,ShellActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.et_account:
                 mhandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mRootScrollView.fullScroll(View.FOCUS_DOWN);
                     }
                 },100);
-            }
-        });
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+                default:
+                    break;
+        }
     }
-
 }
