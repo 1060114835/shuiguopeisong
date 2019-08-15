@@ -1,6 +1,7 @@
-package com.example.fruitdelivery.modules.home.order.fragments.allitem;
+package com.example.fruitdelivery.modules.home.order.fragments.no_pay;
 
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -24,14 +25,18 @@ import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
-        AllItemRecyclerViewAdapter.OnClickListener, AllItemView {
+@SuppressLint("ValidFragment")
+public class NoPayFragment extends BaseFragment<NoPayPresenter> implements
+        NoPayRecyclerViewAdapter.OnClickListener, NoPayView {
     private RecyclerView mRecyclerView;
     private PopupWindow popupWindow;
     private View popupView;
-    private AllItemRecyclerViewAdapter mAdapter;
-    private List<AllItemBean> mList = new ArrayList<>();
-    private boolean flags = true;
+    private NoPayRecyclerViewAdapter mAdapter;
+    private List<AllItemBean> mList ;
+
+    public NoPayFragment(List<AllItemBean> mList) {
+        this.mList = mList;
+    }
 
     @Override
     protected int getContentLayoutId() {
@@ -39,19 +44,15 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
     }
 
     @Override
-    protected AllItemPresenter createPresenter() {
-        return new AllItemPresenter();
+    protected NoPayPresenter createPresenter() {
+        return new NoPayPresenter();
     }
 
     @Override
     protected void initView() {
-        if (flags) {
-            mPresenter.initData(mList);
-            flags = false;
-        }
         mRecyclerView = mView.findViewById(R.id.rv_order_allItem);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(mView.getContext());
-        mAdapter = new AllItemRecyclerViewAdapter(mList);
+        mAdapter = new NoPayRecyclerViewAdapter(mList);
         mAdapter.setClickListener(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
@@ -82,7 +83,8 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
         alterDiaglog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.order_cancel_anim);
+                Animation animation = AnimationUtils
+                        .loadAnimation(getContext(),R.anim.order_cancel_anim);
                 v.startAnimation(animation);
                 animation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -171,12 +173,14 @@ public class AllItemFragment extends BaseFragment<AllItemPresenter> implements
                 }
             });
         }
-        popupWindow.showAtLocation(mView.findViewById(R.id.rv_order_allItem), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popupWindow.showAtLocation(mView.findViewById(R.id.rv_order_allItem),
+                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         lightOff();
     }
 
 
-    class TextRecyclerViewAdapter extends RecyclerView.Adapter<TextRecyclerViewAdapter.ViewHolder> {
+    public static class TextRecyclerViewAdapter extends
+            RecyclerView.Adapter<TextRecyclerViewAdapter.ViewHolder> {
         private List<String> mData;
 
         public TextRecyclerViewAdapter(List<String> mData) {

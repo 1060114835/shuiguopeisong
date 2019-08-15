@@ -1,4 +1,4 @@
-package com.example.fruitdelivery.modules.home.order.fragments.allitem;
+package com.example.fruitdelivery.modules.home.order.fragments.no_pay;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -17,7 +17,7 @@ import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
 
 import java.util.List;
 
-public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecyclerViewAdapter.MyViewHolder> {
+public class NoPayRecyclerViewAdapter extends RecyclerView.Adapter<NoPayRecyclerViewAdapter.MyViewHolder> {
     private static final String TAG = "chen";
 
     public interface OnClickListener {
@@ -34,7 +34,7 @@ public class AllItemRecyclerViewAdapter extends RecyclerView.Adapter<AllItemRecy
     private Context mContext;
     private List<AllItemBean> mList;
 
-    AllItemRecyclerViewAdapter(List<AllItemBean> listView) {
+    NoPayRecyclerViewAdapter(List<AllItemBean> listView) {
         super();
         mList = listView;
     }

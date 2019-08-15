@@ -5,45 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="15dp"
-    android:layout_marginTop="15dp"
-    app:cardCornerRadius="5dp">
+    android:layout_marginTop="8dp"
+    app:cardCornerRadius="7dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="15dp">
-
-        <LinearLayout
-            android:id="@+id/ly_order_evaluate_pay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/order_store" />
-
-            <TextView
-                android:id="@+id/tv_order_item_evaluate_store"
-                android:layout_width="wrap_content"
+        android:padding="10dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ly_order_evaluate_pay"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingHorizontal="5dp"
-                android:text="悦果汇旗舰店"
-                android:textColor="#404040"
-                android:textSize="15sp"
-                tools:targetApi="o" />
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="10dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_fore" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/order_store" />
+
+                <TextView
+                    android:id="@+id/tv_order_item_evaluate_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingHorizontal="5dp"
+                    android:text="悦果汇旗舰店"
+                    android:textColor="#404040"
+                    android:textSize="15sp"
+                    tools:targetApi="o" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_fore" />
+            </LinearLayout>
+            <TextView
+                android:text="未评价"
+                android:textColor="#FF4B00"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/rl_click_evaluate_thing"

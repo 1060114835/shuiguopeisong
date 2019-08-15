@@ -1,9 +1,8 @@
 package com.example.fruitdelivery.modules.home.order.fragments;
 
-public final class TypeConstant {
-    public static final int TOTAL = 0;
-    public static final int NO_PAY = 1;
-    public static final int NO_SIGN = 2;
-    public static final int NO_EVALUATE = 3;
-    public static final int ACCOMPLISH = 4;
+public enum TypeConstant {
+   NO_PAY, //未支付碎片
+    NO_SIGN, //未签收碎片
+    NO_EVALUATE, //未评价碎片
+    ACCOMPLISH ; //已完成碎片
 }
