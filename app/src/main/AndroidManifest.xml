@@ -13,17 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".modules.account.login.LoginActivity"/>
+        <activity android:name=".modules.account.login.LoginActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".modules.account.register.RegisterActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity android:name=".debug.DebugActivity">
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:launchMode="singleTask"/>
+        <activity android:name=".debug.DebugActivity"
+            android:launchMode="singleTask">
 
         </activity>
 
         <!--MyDebugActivity-->
-        <activity android:name=".modules.home.self.MyDebugActivity"/>
+        <activity android:name=".modules.home.self.MyDebugActivity"
+            android:launchMode="singleTask"/>
 
-        <activity android:name=".modules.home.shell.ShellActivity" >
+        <activity android:name=".modules.home.shell.ShellActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

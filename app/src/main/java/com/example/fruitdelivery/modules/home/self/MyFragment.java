@@ -11,8 +11,10 @@ import android.widget.Toast;
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseFragment;
 import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
+import com.example.fruitdelivery.modules.account.login.LoginActivity;
 import com.example.fruitdelivery.modules.home.self.myUtil.BoolDataBack;
 import com.example.fruitdelivery.modules.home.self.myUtil.CardBottomAdapter;
+import com.example.fruitdelivery.modules.home.shell.ShellActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +71,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        CardBottomAdapter adapter = new CardBottomAdapter(getContext(),uriList,R.layout.my_card_item);
-        recyclerView.setAdapter(adapter);
+        CardBottomAdapter cardBottomAdapter = new CardBottomAdapter(getContext(),uriList,R.layout.my_card_item);
+        recyclerView.setAdapter(cardBottomAdapter);
 
         //假如没有获取到订单数据
         boolData = 0;
@@ -95,6 +97,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        myHead.setOnClickListener(this);
         myOrder.setOnClickListener(this);
     }
 
@@ -106,14 +109,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
                 Toast.makeText(getContext(),"跳转至订单页",Toast.LENGTH_SHORT).show();
 
                 //活动与碎片的通信
-                //跳转至订单页:1
-
-//                Activity activity = getBActivity();
-//                activity.getViewPager().setCurrentItem(position);
-
-                //跳转至MyDebug
-                startActivity(new Intent(getContext(),MyDebugActivity.class));
-
+                //跳转至订单页:0
+                ShellActivity shellActivity = (ShellActivity)getActivity();
+                shellActivity.getViewPager().setCurrentItem(0);
+                shellActivity.getTabLayout().getTabAt(0).select();
+                break;
+            case R.id.my_head:
+                startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
 
             default:
