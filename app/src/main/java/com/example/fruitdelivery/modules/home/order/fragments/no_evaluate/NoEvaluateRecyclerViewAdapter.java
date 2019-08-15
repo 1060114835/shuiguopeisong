@@ -46,6 +46,7 @@ public class NoEvaluateRecyclerViewAdapter extends RecyclerView.Adapter<NoEvalua
         viewHolder.tvUnit.setText(itemBean.unit);
          /*
         跳转商店详情页
+
          */
         viewHolder.lyClickStore.setOnClickListener(new View.OnClickListener() {
             @Override

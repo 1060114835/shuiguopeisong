@@ -26,9 +26,14 @@ public class NoSignRecyclerViewAdapter extends RecyclerView.Adapter<NoSignRecycl
         this.mList = mList;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         mContext = viewGroup.getContext();
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_order_no_sign,viewGroup,false);
         return new ViewHolder(view);
@@ -36,9 +41,9 @@ public class NoSignRecyclerViewAdapter extends RecyclerView.Adapter<NoSignRecycl
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
         final int position = viewHolder.getAdapterPosition();
         AllItemBean itemBean = mList.get(i);
-        Log.d("chen", "onBindViewHolder: "+viewHolder.tvPrice+"    "+itemBean.Price);
         viewHolder.tvPrice.setText(itemBean.Price);
         viewHolder.tvTotalPrice.setText(itemBean.totalPrice);
         viewHolder.tvSaleVolume.setText(itemBean.saleVolume);
@@ -56,6 +61,8 @@ public class NoSignRecyclerViewAdapter extends RecyclerView.Adapter<NoSignRecycl
 
     @Override
     public int getItemCount() {
+        int index;
+
         return mList.size();
     }
 
