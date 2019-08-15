@@ -23,6 +23,10 @@ public class TotalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
     private Context mContext;
     private List<AllItemBean> mData;
     private OnClickListener onClickListener;
+    private static final int CLASS_NO_PAY = 0;
+    private static final int CLASS_NO_SIGN = 1;
+    private static final int CLASS_NO_EVALUATE = 2;
+    private static final int CLASS_ACCOMPLISH = 3;
 
     public interface OnClickListener {
         void onClickStore(int position);
@@ -52,23 +56,23 @@ public class TotalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         mContext = viewGroup.getContext();
         View view;
-        switch (mData.get(i).typeConstant) {
-            case NO_PAY:
+        switch (i) {
+            case CLASS_NO_PAY:
                 view = LayoutInflater.from(mContext)
                         .inflate(R.layout.item_order_allitem, viewGroup, false);
                 Log.d("chen", "onCreateViewHolder: " + mData.get(i).typeConstant + "  " + i);
                 return new NoPayViewHolder(view);
-            case NO_SIGN:
+            case CLASS_NO_SIGN:
                 view = LayoutInflater.from(mContext)
                         .inflate(R.layout.item_order_no_sign, viewGroup, false);
                 Log.d("chen", "onCreateViewHolder: " + mData.get(i).typeConstant + "  " + i);
                 return new NoSignViewHolder(view);
-            case ACCOMPLISH:
+            case CLASS_ACCOMPLISH:
                 view = LayoutInflater.from(mContext)
                         .inflate(R.layout.item_order_accomplish, viewGroup, false);
                 Log.d("chen", "onCreateViewHolder: " + mData.get(i).typeConstant + "  " + i);
                 return new AccomplishViewHolder(view);
-            case NO_EVALUATE:
+            case CLASS_NO_EVALUATE:
                 view = LayoutInflater.from(mContext)
                         .inflate(R.layout.item_order_no_evaluate, viewGroup, false);
                 Log.d("chen", "onCreateViewHolder: " + mData.get(i).typeConstant + "  " + i);
@@ -81,7 +85,6 @@ public class TotalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
         final int position = viewHolder.getAdapterPosition();
         AllItemBean itemBean = mData.get(i);
-
         switch (mData.get(i).typeConstant) {
             /*
             未评价页面
@@ -128,9 +131,7 @@ public class TotalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
              已完成页面
              */
             case ACCOMPLISH:
-                Log.d("chen1", "onBindViewHolder: " + viewHolder);
                 AccomplishViewHolder accomplishViewHolder = (AccomplishViewHolder) viewHolder;
-                Log.d("chen2", "onBindViewHolder: " + i + mData.get(i).typeConstant + "  " + viewHolder);
                 accomplishViewHolder.tvPrice.setText(itemBean.Price);
                 accomplishViewHolder.tvTotalPrice.setText(itemBean.totalPrice);
                 accomplishViewHolder.tvSaleVolume.setText(itemBean.saleVolume);
@@ -245,13 +246,22 @@ public class TotalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public int getItemViewType(int position) {
-
+        switch (mData.get(position).typeConstant) {
+            case NO_PAY:
+                return CLASS_NO_PAY;
+            case NO_SIGN:
+                return CLASS_NO_SIGN;
+            case NO_EVALUATE:
+                return CLASS_NO_EVALUATE;
+            case ACCOMPLISH:
+                return CLASS_ACCOMPLISH;
+        }
         return position;
     }
 
     /*
-        未支付页面子项
-         */
+   未支付页面子项
+    */
     class NoPayViewHolder extends RecyclerView.ViewHolder {
         View itemView;
         LinearLayout lyClickStore;
