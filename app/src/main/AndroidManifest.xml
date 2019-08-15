@@ -23,9 +23,8 @@
 
         </activity>
 
-        <!--MyDebugActivity-->
-        <activity android:name=".modules.home.self.MyDebugActivity"
-            android:launchMode="singleTask"/>
+        <!--MyEvaluateActivity-->
+        <activity android:name=".modules.home.self.MyEvaluateActivity"/>
 
         <activity android:name=".modules.home.shell.ShellActivity"
             android:launchMode="singleTask">
