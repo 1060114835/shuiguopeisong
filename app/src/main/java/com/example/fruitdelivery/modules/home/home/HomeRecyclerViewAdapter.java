@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,15 +142,17 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }else if (viewHolder instanceof FooterViewHolder) {
 
             FooterViewHolder footerViewHolder = (FooterViewHolder)viewHolder;
-//            switch (state) {
-//                case STATE_LOADING:
-//                    break;
-//                case STATE_FINISH:
-//                    footerViewHolder.progressBar.setVisibility(View.GONE);
-//                    footerViewHolder.textView.setText("我也是有底线的~");
-//                default:
-//                    break;
-//            }
+            switch (state) {
+                case STATE_LOADING:
+                    footerViewHolder.progressBar.setVisibility(View.VISIBLE);
+                    footerViewHolder.textView.setText("正在加载...");
+                    break;
+                case STATE_FINISH:
+                    footerViewHolder.progressBar.setVisibility(View.GONE);
+                    footerViewHolder.textView.setText("我也是有底线的哦~");
+                default:
+                    break;
+            }
 
         }
     }

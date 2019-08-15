@@ -1,13 +1,11 @@
 package com.example.fruitdelivery.modules.home.home;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.fruitdelivery.R;
 
@@ -29,7 +26,6 @@ import java.util.List;
  * @describe: 首页碎片
  */
 public class HomeFragment extends Fragment {
-
     private RecyclerView recyclerView;
     private List<String> urlList = new ArrayList<>();
     private HomeRecyclerViewAdapter adapter;
@@ -49,7 +45,6 @@ public class HomeFragment extends Fragment {
 
         initSwipeRefresh();
         initRecyclerView();
-//        initRecyclerViewListener();
         initRecyclerViewListener();
         return view;
     }
@@ -127,45 +122,37 @@ public class HomeFragment extends Fragment {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
 
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                    int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
-//                    int itemCount = manager.getItemCount();
-//                    if (itemCount - 1 == lastItemPosition) {
-//                        getData();
-//                        adapter.notifyDataSetChanged();
-//                        adapter.setLoadState(adapter.STATE_LOADING);
-//                        //判断请求数据是否已经达到上限，再设置滑动状态
-//                    }
-//                }
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
+                    int itemCount = manager.getItemCount();
+                    if (itemCount - 1 == lastItemPosition) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("TAG","onSrcolled()方法执行");
+                                getData();
+                                if (loadCount <= 2) {
+                                    adapter.setLoadState(adapter.STATE_LOADING);
+                                }else {
+                                    adapter.setLoadState(adapter.STATE_FINISH);
+                                }
+                                adapter.notifyDataSetChanged();
+                            }
+                        },1000);
+                    }
+                }
+
             }
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView,dx,dy);
-
-                int lastVisibleItemPosition = manager.findLastVisibleItemPosition();
-                if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
-
-
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.d("TAG","onSrcolled()方法执行");
-                            getData();
-                            adapter.notifyDataSetChanged();
-                        }
-                    },2000);
-
-
-
-                }
             }
         });
     }
 
     /**
-     * RecyclerView 的点击监听
+     * RecyclerView 的点击监听，后面接口出来再进行设置
      */
     private void initClickListener() {
 
@@ -215,7 +202,6 @@ public class HomeFragment extends Fragment {
             Log.d("TAG","getData执行");
             loadCount++;
         }
-
     }
 
 }
