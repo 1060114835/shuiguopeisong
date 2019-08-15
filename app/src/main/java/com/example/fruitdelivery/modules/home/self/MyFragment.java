@@ -71,13 +71,20 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        CardBottomAdapter cardBottomAdapter = new CardBottomAdapter(getContext(),uriList,R.layout.my_card_item);
+        CardBottomAdapter cardBottomAdapter = new CardBottomAdapter(R.id.my_bottom_recycler_image,getContext(),uriList,R.layout.my_card_item);
         recyclerView.setAdapter(cardBottomAdapter);
 
         //假如没有获取到订单数据
         boolData = 0;
         new BoolDataBack(0,noOrder).showStub();
 
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        myHead.setOnClickListener(this);
+        myOrder.setOnClickListener(this);
     }
 
     /**
@@ -94,12 +101,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         uriList.add(R.drawable.my_tuikuan);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        myHead.setOnClickListener(this);
-        myOrder.setOnClickListener(this);
-    }
 
 
     @Override
