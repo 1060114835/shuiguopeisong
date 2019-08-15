@@ -19,8 +19,7 @@
             android:layout_height="match_parent"
             android:background="#ffae29"
             app:contentScrim="#ffae29"
-            app:layout_scrollFlags="scroll"
-            >
+            app:layout_scrollFlags="scroll">
 
             <!--头像、昵称等信息-->
             <include layout="@layout/my_message"/>
