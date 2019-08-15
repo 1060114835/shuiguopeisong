@@ -2,7 +2,9 @@ package com.example.fruitdelivery.modules.home.home;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.fruitdelivery.R;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public HomeRecyclerViewAdapter(List<String> urlList, Context context) {
         this.urlList = urlList;
         this.context = context;
+        Log.d("TAG","Adapter的构造方法得到执行");
     }
 
     @NonNull
@@ -45,24 +47,29 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         if (i == TYPE_BANNER) {
-            View view = LayoutInflater.from(context).inflate(R.layout.fragment_home,
+            View view = LayoutInflater.from(context).inflate(R.layout.fragment_home_banner,
                     viewGroup,false);
+            Log.d("TAG","banner");
             return new BannerViewHolder(view);
         }else if (i == TYPE_FUNCTION) {
             View view = LayoutInflater.from(context).inflate(R.layout.fragment_home_function,
                     viewGroup,false);
+            Log.d("TAG","function");
             return new FunctionViewHolder(view);
         }else if (i == TYPE_SELLERS) {
             View view = LayoutInflater.from(context).inflate(R.layout.fragment_home_sellers,
                     viewGroup,false);
+            Log.d("TAG","sellers");
             return new SellersViewHolder(view);
         }else if (i == TYPE_FRUIT) {
             View view = LayoutInflater.from(context).inflate(R.layout.fragment_home_fruit,
                     viewGroup,false);
+            Log.d("TAG","fruit");
             return new FruitViewHolder(view);
         }else if (i == TYPE_FOOTER) {
             View view = LayoutInflater.from(context).inflate(R.layout.fragment_home_footer,
                     viewGroup,false);
+            Log.d("TAG","footer");
             return new FooterViewHolder(view);
         }
         return null;
@@ -71,9 +78,12 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
+        Log.d("TAG","onBindViewHolder()方法得到执行");
+
         if (viewHolder instanceof BannerViewHolder) {
 
             BannerViewHolder bannerViewHolder = (BannerViewHolder)viewHolder;
+            bannerViewHolder.viewPager.setId(i);
 
         }else if (viewHolder instanceof FunctionViewHolder) {
 
@@ -86,7 +96,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }else if (viewHolder instanceof FruitViewHolder) {
 
             FruitViewHolder fruitViewHolder = (FruitViewHolder)viewHolder;
-            Glide.with(context).load(urlList.get(i)).into(fruitViewHolder.imageView);
+//            Glide.with(context).load(urlList.get(i)).into(fruitViewHolder.imageView);
 
         }else if (viewHolder instanceof FooterViewHolder) {
 
@@ -106,7 +116,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        return urlList.size() + 4;
+        return 10;
     }
 
     @Override
@@ -133,8 +143,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     class BannerViewHolder extends RecyclerView.ViewHolder {
 
+        ViewPager viewPager;
+
         public BannerViewHolder(@NonNull View itemView) {
             super(itemView);
+            viewPager = itemView.findViewById(R.id.home_view_pager);
         }
     }
 

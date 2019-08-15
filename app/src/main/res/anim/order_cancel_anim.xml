@@ -5,8 +5,8 @@
     <!--平移动画标签-->
     <translate
         android:fromXDelta="0%p"
-        android:toXDelta="100%"
-        android:duration="1000"/>
+        android:toXDelta="100%p"
+        android:duration="800"/>
         <!--android:fromYDelta="0%p"-->
         <!--android:toYDelta="20%p"-->
     <!--缩放动画标签-->
