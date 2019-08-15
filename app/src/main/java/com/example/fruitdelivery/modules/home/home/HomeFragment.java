@@ -1,10 +1,9 @@
 package com.example.fruitdelivery.modules.home.home;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.media.Image;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,19 +30,14 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment {
 
-    private List<ImageView> imageViewList;
-    private int[] images = {R.drawable.home_banner_orange, R.drawable.home_banner_peach,
-            R.drawable.home_banner_pineapple, R.drawable.home_banner_strawberry,
-            R.drawable.home_banner_tomato};
-    private ViewPager viewPager;
-    private LinearLayout layout;
-    private int lastPosition;
     private RecyclerView recyclerView;
     private List<String> urlList = new ArrayList<>();
     private HomeRecyclerViewAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
     private LinearLayoutManager manager;
     private View viewHome;
+    private static int[] images;
+    private int loadCount = 0;
 
     @Nullable
     @Override
@@ -53,101 +47,75 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
         viewHome = view;
 
-        initViewPager();
-        initViewPagerListener();
+        initSwipeRefresh();
         initRecyclerView();
-//        initSwipeRefresh();
 //        initRecyclerViewListener();
-
+        initRecyclerViewListener();
         return view;
     }
 
     /**
-     * ViewPager 做 Banner 轮播的 View 实现
+     * 提供 ViewPager 轮播的 ImageView集合
      */
-    private void initViewPager() {
+    public static ArrayList<ImageView> getBannerData(Context context) {
 
-        //初始化数据
-        imageViewList = new ArrayList<>();
+        ArrayList<ImageView> imageViewList = new ArrayList<>();
+        setImages();
         for (int i = 0; i < images.length; i++) {
-            ImageView imageView = new ImageView(getContext());
+            ImageView imageView = new ImageView(context);
             imageView.setImageResource(images[i]);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageViewList.add(imageView);
         }
-        @SuppressLint("InflateParams")
-        View viewHomeBanner = getLayoutInflater().inflate(R.layout.fragment_home_banner,
-                null, false);
-
-        //初始化ViewPager
-        viewPager = viewHomeBanner.findViewById(R.id.home_view_pager);
-
-        Log.d("TAG", String.valueOf(viewPager));
-
-        HomeViewPagerAdapter adapter = new HomeViewPagerAdapter(imageViewList);
-        viewPager.setAdapter(adapter);
-        int firstPosition = Integer.MAX_VALUE/2;
-        viewPager.setCurrentItem(firstPosition,true);
-
-        //设置banner指示器
-        layout = viewHomeBanner.findViewById(R.id.home_ll_indicator);
-        for (int i = 0; i < images.length; i++) {
-            ImageView imageView = new ImageView(getContext());
-            imageView.setImageResource(R.drawable.home_banner_indicrator);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20,5);
-            if (i > 0) {
-                params.leftMargin = 15;
-            }
-            layout.addView(imageView,params);
-        }
-
-        Log.d("TAG","ViewPager初始化");
-
+        return imageViewList;
     }
 
     /**
-     * ViewPager 的滑动监听
+     * 设置 banner图片数组
      */
-    private void initViewPagerListener() {
+    private static void setImages() {
+        images = new int[]{R.drawable.home_banner_lemon,R.drawable.home_banner_shala,
+        R.drawable.home_banner_blueberry,R.drawable.home_banner_orange,R.drawable.
+                home_banner_strawberry};
+    }
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-                layout.getChildAt(i % imageViewList.size()).setSelected(true);
-                layout.getChildAt(lastPosition).setSelected(false);
-                lastPosition = i % imageViewList.size();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-                //解决滑动冲突
-                if (i == ViewPager.SCROLL_STATE_DRAGGING) {
-                    refreshLayout.setEnabled(false);
-                }else if (i == ViewPager.SCROLL_STATE_SETTLING) {
-                    refreshLayout.setEnabled(true);
-                }
-            }
-        });
+    /**
+     * 提供 banner图片的数组
+     */
+    public static int[] getImages() {
+        return images;
     }
 
     /**
      * RecyclerView 的初始化
      */
     private void initRecyclerView() {
-        //getData();
         recyclerView = viewHome.findViewById(R.id.home_recycler_view);
         adapter = new HomeRecyclerViewAdapter(urlList,getContext());
         manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,
                 false);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(manager);
-        Log.d("TAG","RecyclerView初始化");
-        Log.d("TAG", String.valueOf(recyclerView.getAdapter()));
+        //自动刷新：一
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+            }
+        });
+
+        //自动刷新：二
+        refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                urlList.clear();
+                getData();
+                adapter.notifyDataSetChanged();
+                refreshLayout.setRefreshing(false);
+
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(manager);
+
+            }
+        },2000);
     }
 
     /**
@@ -155,26 +123,43 @@ public class HomeFragment extends Fragment {
      */
     private void initRecyclerViewListener() {
 
-
-
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
-                    int itemCount = manager.getItemCount();
-                    if (itemCount - 1 == lastItemPosition) {
-                        //getData();
-                        adapter.setLoadState(adapter.STATE_LOADING);
-                        //判断请求数据是否已经达到上限，再设置滑动状态
-                    }
-                }
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
+//                    int itemCount = manager.getItemCount();
+//                    if (itemCount - 1 == lastItemPosition) {
+//                        getData();
+//                        adapter.notifyDataSetChanged();
+//                        adapter.setLoadState(adapter.STATE_LOADING);
+//                        //判断请求数据是否已经达到上限，再设置滑动状态
+//                    }
+//                }
             }
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                //是否向上滑动
+                super.onScrolled(recyclerView,dx,dy);
+
+                int lastVisibleItemPosition = manager.findLastVisibleItemPosition();
+                if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
+
+
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("TAG","onSrcolled()方法执行");
+                            getData();
+                            adapter.notifyDataSetChanged();
+                        }
+                    },2000);
+
+
+
+                }
             }
         });
     }
@@ -193,35 +178,44 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * SwipeRefresh 的初始化、包括监听
+     * SwipeRefreshLayout 的初始化、包括监听
      */
     private void initSwipeRefresh() {
+
         refreshLayout = viewHome.findViewById(R.id.home_swipe_refresh);
         refreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
                 android.R.color.holo_red_light, android.R.color.holo_orange_light,
                 android.R.color.holo_green_light);
+
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 urlList.clear();
-                //getData();
+                loadCount = 0;
+                getData();
                 adapter.notifyDataSetChanged();
                 refreshLayout.setRefreshing(false);
             }
         });
+
+
+        Log.d("TAG","调用onRefresh方法");
+
     }
 
+
     /**
-     * 获取网络数据
+     * 获取网络数据,这里先用本地的数据代替
      */
-//    private void getData() {
-//        AnalysisUtil.getDefault().getArticleCall(new AnalysisUtil.ArticleCallBack() {
-//            @Override
-//            public void onSuccess(JsonRootBean jsonRootBean) {
-//                urlList.add(jsonRootBean.getResults().get(0).getUrl());
-//                Log.d("TAG",urlList.get(1));
-//            }
-//        });
-//    }
+    private void getData() {
+        if (loadCount <= 2){
+            for (int i = 0; i < 2; i++) {
+                urlList.add(String.valueOf(i));
+            }
+            Log.d("TAG","getData执行");
+            loadCount++;
+        }
+
+    }
 
 }
