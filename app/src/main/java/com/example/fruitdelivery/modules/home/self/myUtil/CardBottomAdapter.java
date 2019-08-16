@@ -1,5 +1,6 @@
 package com.example.fruitdelivery.modules.home.self.myUtil;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -50,6 +51,9 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
                 //根据传入的item定义不同的点击逻辑
                 switch (mBoolXml){
                     case R.layout.my_card_item:
+                        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(viewHolder.bottomItem,"alpha",1f,0.5f,1f);
+                        objectAnimator.setDuration(500);
+                        objectAnimator.start();
                         switch (position){
                         case 0:
                             break;
