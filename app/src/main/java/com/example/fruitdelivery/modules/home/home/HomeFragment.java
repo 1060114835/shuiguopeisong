@@ -1,6 +1,7 @@
 package com.example.fruitdelivery.modules.home.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -16,6 +17,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.base.BaseActivity;
+import com.example.fruitdelivery.base.BaseActivityWithToolbar;
+import com.example.fruitdelivery.base.BaseFragment;
+import com.example.fruitdelivery.base.BasePresenter;
+import com.example.fruitdelivery.base.IView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +31,7 @@ import java.util.List;
  * @date: 2019/8/12
  * @describe: 首页碎片
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment implements HomeView {
     private RecyclerView recyclerView;
     private List<String> urlList = new ArrayList<>();
     private HomeRecyclerViewAdapter adapter;
@@ -35,18 +41,23 @@ public class HomeFragment extends Fragment {
     private static int[] images;
     private int loadCount = 0;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    protected int getContentLayoutId() {
+        return R.layout.fragment_home;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_home,container,false);
-        viewHome = view;
+    @Override
+    protected BasePresenter createPresenter() {
+        return new HomePresenter();
+    }
+
+    @Override
+    protected void initView() {
+        viewHome = mView;
 
         initSwipeRefresh();
         initRecyclerView();
         initRecyclerViewListener();
-        return view;
     }
 
     /**
@@ -202,6 +213,16 @@ public class HomeFragment extends Fragment {
             Log.d("TAG","getData执行");
             loadCount++;
         }
+    }
+
+    /**
+     *
+     */
+    @Override
+    protected void onVisibleToUser() {
+        BaseActivityWithToolbar activity = (BaseActivityWithToolbar) getBActivity();
+        activity.setTitle("我的首页");
+        activity.setStatusColor(Color.parseColor("#ffb62b"));
     }
 
 }
