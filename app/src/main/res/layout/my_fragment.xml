@@ -17,8 +17,8 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffae29"
-            app:contentScrim="#ffae29"
+            android:background="#ffb62b"
+            app:contentScrim="#ffb62b"
             app:layout_scrollFlags="scroll">
 
             <!--头像、昵称等信息-->
