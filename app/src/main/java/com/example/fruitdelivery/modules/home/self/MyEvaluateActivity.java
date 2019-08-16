@@ -24,11 +24,11 @@ import java.util.List;
 public class MyEvaluateActivity extends BaseActivity {
 
     /**
-     * 获取"口味"文字
+     * 获取"口味"评价文字
      */
     TextView textKouwei;
     /**
-     * 获取"包装"文字
+     * 获取"包装"评价文字
      */
     TextView textBaozhuang;
     /**
