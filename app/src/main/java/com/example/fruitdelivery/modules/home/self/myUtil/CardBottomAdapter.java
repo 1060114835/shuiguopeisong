@@ -1,5 +1,6 @@
 package com.example.fruitdelivery.modules.home.self.myUtil;
 
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
@@ -25,10 +26,42 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
     private List<Integer> uris;
     private Context mContext;
     private Handler mHandler;
+
+    /**
+     * 滑块ImageView
+     */
+    private ImageView mImageMove;
+
+    /**
+     * 设置点击item图标的标志位
+     */
+    private int FLAG;
+
+    /**
+     * 13dp换算的固定margin
+     */
+    final float INSTANCE = 45.5f;
+
+    /**
+     * 将上次滑动的终点设置为下一次滑动的起始位置
+     */
+    private volatile static float FLAG_FROM;
+
+    /**
+     * 单例的AnimatorSet
+     */
+    AnimatorSet commonSet;
+
+    /**
+     * 单例的ObjectAnimator
+     */
+    private volatile static ObjectAnimator animatorBlock,animatorItem;
+
     /**
      * 不同的item
      */
     int mBoolXml;
+
     /**
      * 不同item中的image
      */
@@ -43,31 +76,40 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
         View view = LayoutInflater.from(mContext).inflate(mBoolXml,viewGroup,false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-        //设置Item中ImageView的点击事件
-        viewHolder.bottomItem.setOnClickListener(new View.OnClickListener() {
+        //设置Item中ImageView的点击事件,防连点
+        viewHolder.bottomItem.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            protected void onNoDoubleClick(View v) {
                 int position = viewHolder.getAdapterPosition();
                 //根据传入的item定义不同的点击逻辑
                 switch (mBoolXml){
                     case R.layout.my_card_item:
-                        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(viewHolder.bottomItem,"alpha",1f,0.5f,1f);
-                        objectAnimator.setDuration(500);
-                        objectAnimator.start();
+                        //没搞懂getRight()方法，但这里返回的长度恰好为滑块长度，且因为指定了final，就不变
+                        final float INSTANCE_LONG = mImageMove.getRight();
+
+                        //item点击的效果
+                        animatorItem = ObjectAnimator.ofFloat(viewHolder.bottomItem,"alpha",1f,0.5f,0.3f,0.5f,1f);
+                        animatorItem.setDuration(500);
+                        animatorItem.start();
                         switch (position){
-                        case 0:
-                            break;
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            mContext.startActivity(new Intent(mContext, MyEvaluateActivity.class));
-                            break;
-                        case 4:
-                            break;
-                        default:
-                            break;
+                            case 0:
+                                changePosition(INSTANCE_LONG,0);
+                                break;
+                            case 1:
+                                changePosition(INSTANCE_LONG,1);
+                                break;
+                            case 2:
+                                changePosition(INSTANCE_LONG,2);
+                                break;
+                            case 3:
+                                changePosition(INSTANCE_LONG,3);
+                                mContext.startActivity(new Intent(mContext,MyEvaluateActivity.class));
+                                break;
+                            case 4:
+                                changePosition(INSTANCE_LONG,4);
+                                break;
+                            default:
+                                break;
                         }
                         break;
                     case R.layout.my_evaluate_star_item:
@@ -76,12 +118,11 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
                     default:
                         break;
                 }
-
             }
         });
-
         return viewHolder;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull CardBottomAdapter.ViewHolder viewHolder, int i) {
@@ -95,38 +136,24 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
     }
 
     /**
-     * 发送Message更改星评
-     *
-     * @param position the position
-     */
-    public void startMessage(final int position){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Message message = Message.obtain();
-                message.what = position;
-                mHandler.sendMessage(message);
-            }
-        }).start();
-    }
-
-    /**
-     * Instantiates a new Card bottom adapter.
+     * 用于卡片底栏
      *
      * @param imageItemXml the image item xml
      * @param context      the context
      * @param uriList      the uri list
      * @param boolItem     the bool item
+     * @param imageView    the image view
      */
-    public CardBottomAdapter(int imageItemXml,Context context,List<Integer> uriList,int boolItem){
+    public CardBottomAdapter(int imageItemXml,Context context,List<Integer> uriList,int boolItem,ImageView imageView){
         this.uris = uriList;
         this.mContext = context;
         this.mBoolXml = boolItem;
         this.mImageItemXml = imageItemXml;
+        this.mImageMove = imageView;
     }
 
     /**
-     * 带有Handler的构造函数
+     * 带有Handler的构造函数,用于评价星
      *
      * @param imageItemXml the image item xml
      * @param context      the context
@@ -141,7 +168,6 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
         this.mHandler = handler;
         this.mImageItemXml = imageItemXml;
     }
-
 
     /**
      * The type View holder.
@@ -161,5 +187,37 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
             super(view);
             bottomItem = view.findViewById(mImageItemXml);
         }
+    }
+
+    /**
+     * 滑块改变动画的具体逻辑
+     * @param instanceLong
+     * @param times
+     */
+    private void changePosition(float instanceLong,int times){
+        FLAG = times + 1;
+        commonSet = MyInterpolater.getAnimatorSet();
+        animatorBlock = ObjectAnimator.ofFloat(mImageMove,"x",FLAG_FROM, instanceLong*(FLAG - 1)+ INSTANCE*FLAG);
+        animatorBlock.setDuration(200);
+        animatorBlock.setInterpolator(MyInterpolater.getOvershootInterpolator());
+        commonSet.play(animatorBlock);
+        commonSet.start();
+        FLAG_FROM = instanceLong*(FLAG - 1)+ INSTANCE*FLAG;
+    }
+
+    /**
+     * 发送Message更改星评
+     *
+     * @param position the position
+     */
+    public void startMessage(final int position){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Message message = Message.obtain();
+                message.what = position;
+                mHandler.sendMessage(message);
+            }
+        }).start();
     }
 }

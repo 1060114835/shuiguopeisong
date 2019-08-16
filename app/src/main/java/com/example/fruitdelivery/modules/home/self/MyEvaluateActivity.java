@@ -13,6 +13,7 @@ import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseActivity;
 import com.example.fruitdelivery.base.BasePresenter;
 import com.example.fruitdelivery.modules.home.self.myUtil.CardBottomAdapter;
+import com.example.fruitdelivery.modules.home.self.myUtil.NoDoubleClickListener;
 import com.example.fruitdelivery.modules.home.shell.ShellActivity;
 
 import java.util.ArrayList;
@@ -93,11 +94,11 @@ public class MyEvaluateActivity extends BaseActivity {
         cardBottomAdapter2 = new CardBottomAdapter(R.id.my_star_image,this,uriList,R.layout.my_evaluate_star_item,getHandler(textBaozhuang,recyclerView2));
         recyclerView2.setAdapter(cardBottomAdapter2);
 
-        //提交评价跳转至ShellActivity
+        //提交评价跳转至ShellActivity,防连点
         cardCommit = findViewById(R.id.commit_evaluate);
-        cardCommit.setOnClickListener(new View.OnClickListener() {
+        cardCommit.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            protected void onNoDoubleClick(View v) {
                 startActivity(new Intent(MyEvaluateActivity.this, ShellActivity.class));
             }
         });
