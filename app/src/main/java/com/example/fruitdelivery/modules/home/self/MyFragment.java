@@ -1,6 +1,7 @@
 package com.example.fruitdelivery.modules.home.self;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.ViewStub;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.base.BaseActivityWithToolbar;
 import com.example.fruitdelivery.base.BaseFragment;
 import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
 import com.example.fruitdelivery.modules.account.login.LoginActivity;
@@ -128,4 +130,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
     public void setMyData(JsonRootBean jsonRootBean) {
         //具体关于设置头像、电话、昵称的逻辑
     }
+
+    @Override
+    protected void onVisibleToUser() {
+        BaseActivityWithToolbar activity = (BaseActivityWithToolbar) getBActivity();
+        activity.setTitle("个人信息");
+        activity.setStatusColor(Color.parseColor("#ffb62b"));
+    }
+
 }

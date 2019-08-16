@@ -1,10 +1,12 @@
 package com.example.fruitdelivery.modules.home.order.main_fragment;
 
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.base.BaseActivityWithToolbar;
 import com.example.fruitdelivery.base.BaseFragment;
 import com.example.fruitdelivery.base.IView;
 import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
@@ -37,6 +39,7 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements IView
 
     @Override
     protected void initView() {
+
         ArrayList<AllItemBean> mData = new ArrayList<>();
         mPresenter.initData(mData);
         mVpDisplay = mView.findViewById(R.id.vp_order);
@@ -59,5 +62,10 @@ public class OrderFragment extends BaseFragment<OrderPresenter> implements IView
         mVpDisplay.setAdapter(new OrderViewPagerAdapter(getChildFragmentManager(), mFragmentData, mTitleData));
         tabLayout.setupWithViewPager(mVpDisplay);
     }
-
+    @Override
+    protected void onVisibleToUser() {
+        BaseActivityWithToolbar activity = (BaseActivityWithToolbar) getBActivity();
+        activity.setTitle("我的订单");
+        activity.setStatusColor(Color.parseColor("#ffb62b"));
+    }
 }
