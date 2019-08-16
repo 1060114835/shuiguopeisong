@@ -6,6 +6,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseActivity;
@@ -40,11 +43,11 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
     protected void initView(Bundle savedInstanceState) {
 
         viewPager = findViewById(R.id.shell_view_pager);
+        viewPager.setOffscreenPageLimit(0);
         tabLayout = findViewById(R.id.shell_tab_layout);
         List<Fragment> fragmentList = new ArrayList<>();
         final List<String> tabTitleList = new ArrayList<>();
         List<Integer> tabIconList = new ArrayList<>();
-        final List<String> titleList = new ArrayList<>();
 
         fragmentList.add(new OrderFragment());
         fragmentList.add(new HomeFragment());
@@ -55,10 +58,6 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
         tabIconList.add(R.drawable.shell_tab_order);
         tabIconList.add(R.drawable.shell_tab_homepage);
         tabIconList.add(R.drawable.shell_tab_mine);
-        titleList.add("我的订单");
-        titleList.add("我的首页");
-        titleList.add("个人信息");
-
 
         ShellAdapter adapter = new ShellAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(adapter);
@@ -68,25 +67,15 @@ public class ShellActivity extends BaseActivityWithToolbar<ShellPresenter> imple
             Objects.requireNonNull(tabLayout.getTabAt(i)).setIcon(tabIconList.get(i));
             Objects.requireNonNull(tabLayout.getTabAt(i)).setText(tabTitleList.get(i));
         }
-        setTitle(titleList.get(1));
         Objects.requireNonNull(tabLayout.getTabAt(1)).select();
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                setTitle(titleList.get(tab.getPosition()));
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+    }
 
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
+    @Override
+    protected void initToolBar() {
+        mFrameToolbar = (FrameLayout) LayoutInflater.from(this).inflate(R.layout.toolbar_no_back,
+                mBaseContentView, false);
+        tvTitle = mFrameToolbar.findViewById(R.id.tv_base_title);
     }
 
     public ViewPager getViewPager() {

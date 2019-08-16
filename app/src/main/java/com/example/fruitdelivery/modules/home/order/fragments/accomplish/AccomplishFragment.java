@@ -1,10 +1,12 @@
 package com.example.fruitdelivery.modules.home.order.fragments.accomplish;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.base.BaseActivityWithToolbar;
 import com.example.fruitdelivery.base.BaseFragment;
 import com.example.fruitdelivery.modules.home.order.fragments.AllItemBean;
 import com.example.fruitdelivery.modules.home.order.fragments.TypeConstant;

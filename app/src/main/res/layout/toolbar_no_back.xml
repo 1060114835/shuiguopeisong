@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorBaseBackground">
+
+    <TextView
+        android:id="@+id/tv_base_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="#ffb62b"
+        android:textColor="#ffffff"
+        android:paddingStart="70dp"
+        android:paddingEnd="70dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="标 题"/>
+
+</FrameLayout>
