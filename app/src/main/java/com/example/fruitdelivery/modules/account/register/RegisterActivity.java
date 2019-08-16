@@ -3,11 +3,7 @@ package com.example.fruitdelivery.modules.account.register;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,12 +11,10 @@ import android.widget.ScrollView;
 
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseActivity;
-import com.example.fruitdelivery.base.BasePresenter;
-import com.example.fruitdelivery.modules.account.login.LoginActivity;
 import com.example.fruitdelivery.modules.home.shell.ShellActivity;
 
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener {
+public class RegisterActivity extends BaseActivity<RegisterPresenter> implements View.OnClickListener,RegisterView {
     private ScrollView mRootScrollView;
     private Handler mhandler=new Handler();
 
@@ -30,8 +24,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected RegisterPresenter createPresenter() {
+     return new RegisterPresenter();
     }
 
     @Override
@@ -49,7 +43,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_register:
-               
                 break;
             case R.id.iv_register_back:
                 Intent intent1=new Intent(this,ShellActivity.class);

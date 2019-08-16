@@ -89,7 +89,7 @@ public class TotalFragment extends BaseFragment<TotalPresenter> implements Total
     public void onClickDelete(final int position, final View view) {
         final AlertDialog.Builder alterDialog = new AlertDialog.Builder(getContext());
         alterDialog.setTitle("订单");
-        alterDialog.setMessage("你确认取消该订单吗?");
+        alterDialog.setMessage("你确认删除该记录吗?");
         alterDialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

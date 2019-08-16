@@ -39,6 +39,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         initContentView();
         inflateBaseView();
 
+
         mPresenter = createPresenter();
         if (mPresenter != null) mPresenter.attach(this);
 
