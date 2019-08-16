@@ -57,6 +57,16 @@
                 <!--卡片底栏-->
                 <include layout="@layout/my_card_bottom"/>
 
+                <!--特效滑块-->
+                <ImageView
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/image_move"
+                    android:background="@drawable/my_move_rectangle"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content" />
+
             </android.support.v7.widget.CardView>
 
             <!--无相关订单背景：无订单信息时被隐藏-->

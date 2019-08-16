@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.fruitdelivery.R;
@@ -16,6 +17,7 @@ import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
 import com.example.fruitdelivery.modules.account.login.LoginActivity;
 import com.example.fruitdelivery.modules.home.self.myUtil.BoolDataBack;
 import com.example.fruitdelivery.modules.home.self.myUtil.CardBottomAdapter;
+import com.example.fruitdelivery.modules.home.self.myUtil.NoDoubleClickListener;
 import com.example.fruitdelivery.modules.home.shell.ShellActivity;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * The type My fragment.
  */
-public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClickListener,ISelfView {
+public class MyFragment extends BaseFragment<MyPresenter> implements ISelfView {
 
 
     /**
@@ -67,13 +69,18 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         myOrder = super.mView.findViewById(R.id.my_order);
         noOrder = super.mView.findViewById(R.id.no_order_bool);
 
+        //初始化滑动滑块
+        ImageView imageMove = super.mView.findViewById(R.id.image_move);
+
         //卡片底部的RecyclerView
         initUris();
+
+        //初始化卡片底栏的RecyclerView
         RecyclerView recyclerView = super.mView.findViewById(R.id.my_bottom_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        CardBottomAdapter cardBottomAdapter = new CardBottomAdapter(R.id.my_bottom_recycler_image,getContext(),uriList,R.layout.my_card_item);
+        CardBottomAdapter cardBottomAdapter = new CardBottomAdapter(R.id.my_bottom_recycler_image,getContext(),uriList,R.layout.my_card_item,imageMove);
         recyclerView.setAdapter(cardBottomAdapter);
 
         //假如没有获取到订单数据
@@ -85,8 +92,26 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        myHead.setOnClickListener(this);
-        myOrder.setOnClickListener(this);
+
+        myHead.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                startActivity(new Intent(getContext(), LoginActivity.class));
+            }
+        });
+
+        myOrder.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                Toast.makeText(getContext(),"跳转至订单页",Toast.LENGTH_SHORT).show();
+
+                //活动与碎片的通信
+                //跳转至订单页:0
+                ShellActivity shellActivity = (ShellActivity)getActivity();
+                shellActivity.getViewPager().setCurrentItem(0);
+                shellActivity.getTabLayout().getTabAt(0).select();
+            }
+        });
     }
 
     /**
@@ -101,29 +126,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements View.OnClic
         uriList.add(R.drawable.my_shouhuo);
         uriList.add(R.drawable.my_pingjia);
         uriList.add(R.drawable.my_tuikuan);
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.my_order:
-                Toast.makeText(getContext(),"跳转至订单页",Toast.LENGTH_SHORT).show();
-
-                //活动与碎片的通信
-                //跳转至订单页:0
-                ShellActivity shellActivity = (ShellActivity)getActivity();
-                shellActivity.getViewPager().setCurrentItem(0);
-                shellActivity.getTabLayout().getTabAt(0).select();
-                break;
-            case R.id.my_head:
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                break;
-
-            default:
-                break;
-        }
     }
 
 //    设置数据
