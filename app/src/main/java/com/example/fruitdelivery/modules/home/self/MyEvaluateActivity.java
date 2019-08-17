@@ -9,12 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.fruitdelivery.R;
 import com.example.fruitdelivery.base.BaseActivity;
 import com.example.fruitdelivery.base.BasePresenter;
 import com.example.fruitdelivery.modules.home.self.myUtil.CardBottomAdapter;
 import com.example.fruitdelivery.modules.home.self.myUtil.NoDoubleClickListener;
 import com.example.fruitdelivery.modules.home.shell.ShellActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +59,9 @@ public class MyEvaluateActivity extends BaseActivity {
      */
     private volatile ImageView imageView;
 
+    /**
+     * 当做点击的按钮
+     */
     private CardView cardCommit;
 
     /**
@@ -60,18 +69,13 @@ public class MyEvaluateActivity extends BaseActivity {
      */
     List<Integer> uriList = new ArrayList<>();
 
-    @Override
-    protected int getContentLayoutId() {
-        return R.layout.my_evaluate;
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
+        //对EventBus进行注册
+        EventBus.getDefault().register(this);
+
         initUris();
 
         View view = findViewById(R.id.recycler_kouwei);
@@ -82,7 +86,7 @@ public class MyEvaluateActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        cardBottomAdapter = new CardBottomAdapter(R.id.my_star_image,this,uriList,R.layout.my_evaluate_star_item,getHandler(textKouwei,recyclerView));
+        cardBottomAdapter = new CardBottomAdapter(R.id.my_star_image,this,uriList,R.layout.my_evaluate_star_item,1);
         recyclerView.setAdapter(cardBottomAdapter);
 
         View view2 = findViewById(R.id.recycler_baozhuang);
@@ -91,7 +95,7 @@ public class MyEvaluateActivity extends BaseActivity {
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
         layoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView2.setLayoutManager(layoutManager2);
-        cardBottomAdapter2 = new CardBottomAdapter(R.id.my_star_image,this,uriList,R.layout.my_evaluate_star_item,getHandler(textBaozhuang,recyclerView2));
+        cardBottomAdapter2 = new CardBottomAdapter(R.id.my_star_image,this,uriList,R.layout.my_evaluate_star_item,2);
         recyclerView2.setAdapter(cardBottomAdapter2);
 
         //提交评价跳转至ShellActivity,防连点
@@ -103,6 +107,26 @@ public class MyEvaluateActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //对EventBus解绑
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.my_evaluate;
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+
 
     /**
      * 初始化图片Uri
@@ -116,18 +140,13 @@ public class MyEvaluateActivity extends BaseActivity {
     }
 
     /**
-     * 得到Handler实例的方法
-     *
-     * @param tv the tv
-     * @param rv the rv
-     * @return the handler
+     * 评价星级的逻辑
+     * @param tv
+     * @param rv
+     * @param position
      */
-    private Handler getHandler(final TextView tv, final RecyclerView rv){
-        return new Handler() {
-
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
+    private void startChange(final TextView tv, final RecyclerView rv,int position){
+                switch (position) {
                     case 0:
                         changeImage(0,rv);
                         tv.setText("很差");
@@ -151,9 +170,31 @@ public class MyEvaluateActivity extends BaseActivity {
                     default:
                         break;
                 }
-            }
-        };
     }
+
+
+    /**
+     * "口味"评价的订阅者
+     *
+     * @param messageWrap the message wrap
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onGetStickyEvent(MessageWrap messageWrap) {
+        if (messageWrap.flag == 1)
+        startChange(textKouwei,recyclerView,messageWrap.message);
+    }
+
+    /**
+     * "包装"评价的订阅者
+     *
+     * @param messageWrap the message wrap
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onGetStickEvent(MessageWrap messageWrap){
+        if (messageWrap.flag == 2)
+        startChange(textBaozhuang,recyclerView2,messageWrap.message);
+    }
+
 
     /**
      * 得到指定item的ImageView并设置要更改的图片
@@ -177,7 +218,6 @@ public class MyEvaluateActivity extends BaseActivity {
      */
     private void changeImage(int position,RecyclerView recyclerView){
         if (position >=0 && position <5){
-
             for (int i = position;i >= 0;i--){
                 getImage(imageView,recyclerView,i,R.drawable.my_star);
             }

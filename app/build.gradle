@@ -21,7 +21,8 @@ android {
 dependencies {
     //圆形图片
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-
+    //EventBus依赖
+    implementation 'org.greenrobot:eventbus:3.1.1'
     //Glide的依赖
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     //recyclerView依赖

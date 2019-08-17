@@ -15,7 +15,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.modules.home.self.MessageWrap;
 import com.example.fruitdelivery.modules.home.self.MyEvaluateActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -25,8 +28,11 @@ import java.util.List;
 public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.ViewHolder> {
     private List<Integer> uris;
     private Context mContext;
-    private Handler mHandler;
 
+    /**
+     * 传入的标志位
+     */
+    private int DIF_FLAG;
     /**
      * 滑块ImageView
      */
@@ -113,7 +119,7 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
                         }
                         break;
                     case R.layout.my_evaluate_star_item:
-                        startMessage(position);
+                        startMessage(position,DIF_FLAG);
                         break;
                     default:
                         break;
@@ -153,19 +159,19 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
     }
 
     /**
-     * 带有Handler的构造函数,用于评价星
+     * 带有flag的标志位,用于评价星
      *
      * @param imageItemXml the image item xml
      * @param context      the context
      * @param uriList      the uri list
      * @param boolItem     the bool item
-     * @param handler      the handler
+     * @param flag         判断不同评价星级的标志位
      */
-    public CardBottomAdapter(int imageItemXml,Context context,List<Integer> uriList,int boolItem,Handler handler){
+    public CardBottomAdapter(int imageItemXml,Context context,List<Integer> uriList,int boolItem,int flag){
         this.uris = uriList;
         this.mContext = context;
         this.mBoolXml = boolItem;
-        this.mHandler = handler;
+        this.DIF_FLAG = flag;
         this.mImageItemXml = imageItemXml;
     }
 
@@ -210,14 +216,8 @@ public class CardBottomAdapter extends RecyclerView.Adapter<CardBottomAdapter.Vi
      *
      * @param position the position
      */
-    public void startMessage(final int position){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Message message = Message.obtain();
-                message.what = position;
-                mHandler.sendMessage(message);
-            }
-        }).start();
+    public void startMessage(final int position,int flag){
+        //发送黏性事件
+        EventBus.getDefault().postSticky(MessageWrap.getInstance(position,flag));
     }
 }
