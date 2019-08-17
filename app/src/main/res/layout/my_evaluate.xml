@@ -23,18 +23,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="#dddd">
+                android:background="#f9f9f9">
 
                 <ImageView
-                    android:layout_margin="3dp"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/dizhi"/>
+                    android:src="@drawable/my_shop_image_big"/>
                 <ImageView
+                    android:layout_gravity="center_vertical"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:src="@drawable/dizhi"/>
+                    android:src="@drawable/my_shop_image_small"/>
                 <TextView
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
@@ -43,12 +42,13 @@
                     android:layout_weight="1"
                     android:text="鲜果粉旗舰店"/>
                 <ImageView
+                    android:layout_marginRight="2dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/dizhi"/>
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/my_anonymity_bt"/>
                 <TextView
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,10 +68,10 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#dddd">
+                android:background="#f9f9f9">
 
                 <EditText
-                    android:background="#dddd"
+                    android:background="#f9f9f9"
                     android:maxLines="8"
                     android:layout_margin="5dp"
                     android:textSize="15dp"
@@ -85,7 +85,7 @@
                     android:layout_gravity="bottom"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/dizhi"/>
+                    android:src="@drawable/my_camera"/>
 
                 <TextView
                     android:layout_margin="15dp"

@@ -111,7 +111,7 @@ public class MyEvaluateActivity extends BaseActivity {
         //防止过度加载
         uriList.clear();
         for (int i = 0;i < 5;i++){
-        uriList.add(R.drawable.my_star);
+        uriList.add(R.drawable.my_gray_star);
         }
     }
 
@@ -179,18 +179,18 @@ public class MyEvaluateActivity extends BaseActivity {
         if (position >=0 && position <5){
 
             for (int i = position;i >= 0;i--){
-                getImage(imageView,recyclerView,i,R.drawable.my_dizhi);
+                getImage(imageView,recyclerView,i,R.drawable.my_star);
             }
 
             switch (position){
                 case 0:
-                    getImage(imageView,recyclerView,1,R.drawable.my_star);
+                    getImage(imageView,recyclerView,1,R.drawable.my_gray_star);
                 case 1:
-                    getImage(imageView,recyclerView,2,R.drawable.my_star);
+                    getImage(imageView,recyclerView,2,R.drawable.my_gray_star);
                 case 2:
-                    getImage(imageView,recyclerView,3,R.drawable.my_star);
+                    getImage(imageView,recyclerView,3,R.drawable.my_gray_star);
                 case 3:
-                    getImage(imageView,recyclerView,4,R.drawable.my_star);
+                    getImage(imageView,recyclerView,4,R.drawable.my_gray_star);
                     break;
                 default:
                     break;
