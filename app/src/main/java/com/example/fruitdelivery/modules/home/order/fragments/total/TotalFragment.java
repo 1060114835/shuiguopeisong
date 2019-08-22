@@ -30,6 +30,7 @@ public class TotalFragment extends BaseFragment<TotalPresenter> implements Total
     private List<AllItemBean> mData;
     private PopupWindow mPopupWindow;
     private View mPopupView;
+    private boolean flags = true;
     private ArrayList<String> mPriceData = new ArrayList<>();
     private ArrayList<String> mWeightData = new ArrayList<>();
 
@@ -51,7 +52,10 @@ public class TotalFragment extends BaseFragment<TotalPresenter> implements Total
 
     @Override
     protected void initView() {
-        initPayData();
+        if (flags) {
+            initPayData();
+            flags = false;
+        }
         mRecyclerView = mView.findViewById(R.id.rv_order_total);
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mAdapter = new TotalRecyclerViewAdapter(mData);
