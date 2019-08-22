@@ -3,7 +3,6 @@ package com.example.fruitdelivery.util;
 import android.util.Log;
 
 import com.example.fruitdelivery.common.net.Apis;
-import com.example.fruitdelivery.util.TestBean.JsonRootBean;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,94 +32,41 @@ public final class AnalysisUtil {
      */
 
     private static final String TAG = "## Retrofit网络请求 ##";
-    private static final String BASE_URL = "https://www.wanandroid.com/";
-    private static final String BASE_URL_1 = "https://gank.io/api/";
+    private static final String BASE_URL_1 = "https://localhost/fruit_distribution/";
+    private static final String BASE_URL_2 = "http://localhost:8080/fruitproject/";
+    private static final String BASE_URL_3 = "https://localhost/fruitproject/";
+    private static final String BASE_URL_4 = "https://localhost:8080/fruitproject/";
 
-    public interface ArticleCallBack {
-        void onSuccess(JsonRootBean jsonRootBean);
-    }
 
     private static volatile AnalysisUtil instant;
     private Apis apis;
 
 
 
-    private AnalysisUtil() {
+    private AnalysisUtil(String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL_1)
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         apis = retrofit.create(Apis.class);
     }
 
-    public static AnalysisUtil  getDefault() {
+
+    public static AnalysisUtil  getDefault(String baseUrl) {
         if (instant == null) {
             synchronized (AnalysisUtil.class) {
                 if (instant == null) {
-                    instant = new AnalysisUtil();
+                    instant = new AnalysisUtil(baseUrl);
                 }
             }
         }
         return instant;
     }
 
-    /**
-     * 网络请求——文章模块
-     * @param callBack 回调接口
-     */
 
-    public void getArticleCall(final ArticleCallBack callBack) {
-        apis.getPictureCall()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<JsonRootBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
 
-                    }
 
-                    @Override
-                    public void onNext(JsonRootBean value) {
-                        callBack.onSuccess(value);
-                        Log.d(TAG, "onNext: 数据请求成功");
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "onError: 请求数据失败"+e);
-                    }
 
-                    @Override
-                    public void onComplete() {
-                        Log.d(TAG, "onComplete: 请求数据完成"+System.currentTimeMillis());
-                    }
-                });
-    }
-//    public void getPictureCall(final ArticleCallBack callBack) {
-//        apis.getArticleCall()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<JsonRootBean>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(JsonRootBean jsonRootBean) {
-//                        callBack.onSuccess(jsonRootBean);
-//                        Log.d(TAG, "onNext: 数据请求成功");
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        Log.d(TAG, "onError: 请求数据失败"+e);
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                        Log.d(TAG, "onComplete: 请求数据完成"+System.currentTimeMillis());
-//                    }
-//                });
     }
