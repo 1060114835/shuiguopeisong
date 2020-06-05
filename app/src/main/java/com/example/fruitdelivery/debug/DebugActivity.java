@@ -3,15 +3,24 @@ package com.example.fruitdelivery.debug;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.fruitdelivery.R;
+import com.example.fruitdelivery.common.net.bean.atricle.Datas;
+import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
 import com.example.fruitdelivery.modules.home.self.MyEvaluateActivity;
 import com.example.fruitdelivery.modules.home.shell.ShellActivity;
+import com.example.fruitdelivery.util.AnalysisUtil;
 import com.example.fruitdelivery.util.ScreenUtil;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 测试活动 可作为应用程序的入口
@@ -19,6 +28,8 @@ import com.example.fruitdelivery.util.ScreenUtil;
  */
 public class DebugActivity extends AppCompatActivity {
 
+
+    private static final String TAG = "chen_net";
     private LinearLayout llDebug;
 
     @Override
@@ -26,9 +37,43 @@ public class DebugActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debug);
         llDebug = findViewById(R.id.ll_debug);
-        addButtons();
+   //     addButtons();
+        netTest();
     }
 
+
+
+    private void netTest() {
+        AnalysisUtil.
+                getDefault(AnalysisUtil.ChangeUrlInterceptor.ARTICLE_URL)
+                .getApis()
+                .getArticleCall()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JsonRootBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(JsonRootBean value) {
+                        for (Datas data:value.getData().getDatas()) {
+                            Log.d(TAG, "onNext: "+data.getDesc());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: "+e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
     public void addButton(String text, final Runnable runnable) {
         Button button = new Button(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

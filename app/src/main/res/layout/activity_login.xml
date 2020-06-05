@@ -93,4 +93,12 @@
         android:layout_alignRight="@+id/edt_user_account"
         android:textColor="#FFFFFF"
         android:text="登录"/>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_login"
+        android:entries="@array/week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

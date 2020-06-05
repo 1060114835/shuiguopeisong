@@ -14,12 +14,22 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".modules.account.login.LoginActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".modules.account.register.RegisterActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:launchMode="singleTask"/>
         <activity android:name=".debug.DebugActivity"
             android:launchMode="singleTask">
+
+
+
 
         </activity>
 
@@ -28,11 +38,8 @@
 
         <activity android:name=".modules.home.shell.ShellActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 

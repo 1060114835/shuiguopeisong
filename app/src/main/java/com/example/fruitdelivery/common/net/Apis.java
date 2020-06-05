@@ -3,6 +3,8 @@ package com.example.fruitdelivery.common.net;
 
 
 
+import com.example.fruitdelivery.common.net.bean.atricle.JsonRootBean;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
@@ -10,6 +12,7 @@ import retrofit2.http.GET;
  * 这个类存放Retrofit的Api接口，当后端的接口出来后我会补齐
  */
 public interface Apis {
+    String articleUrl = "article/list/3/json";
     String topSearchUrl = "gethotsell";
     String searchUrl = "search";
     String addToShoppingCarUrl = "shoppingcar/update";
@@ -29,6 +32,8 @@ public interface Apis {
     String queryUserUrl = "user/queryuser";
     String updateUserUrl = "user/updateuser";
 
+    @GET(articleUrl)
+    Observable<JsonRootBean> getArticleCall();
 
 
 //    @GET(topSearchUrl)

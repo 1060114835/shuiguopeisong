@@ -43,6 +43,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_register:
+
                 break;
             case R.id.iv_register_back:
                 Intent intent1=new Intent(this,ShellActivity.class);

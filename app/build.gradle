@@ -19,6 +19,8 @@ android {
 }
 
 dependencies {
+    //Okhttp的日志拦截器
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     //圆形图片
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     //EventBus依赖
